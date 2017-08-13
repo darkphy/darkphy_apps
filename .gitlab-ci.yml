@@ -2,7 +2,7 @@ image: elixir:1.5
 
 services:
   - mysql
-  - redis-server:3.0.6
+  - redis-server
 
 variables:
   MIX_ENV: "test"
