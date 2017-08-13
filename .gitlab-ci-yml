@@ -1,0 +1,20 @@
+image: elixir:1.5
+
+services:
+  - mysql
+  - redis-server:3.0.6
+
+variables:
+  MIX_ENV: "test"
+
+before_script:
+  # Setup phoenix dependencies
+  - apt-get update
+  - apt-get install -y mysql-client
+  - mix local.hex --force
+  - mix deps.get --only test
+  - mix ecto.reset
+
+test:
+  script:
+    - mix test
