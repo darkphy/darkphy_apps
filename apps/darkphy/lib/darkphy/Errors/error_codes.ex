@@ -1,0 +1,16 @@
+defmodule Darkphy.Errors.Codes do
+
+  @code_list [
+    "invalid_params",
+    "invalid_captcha",
+    "not_found",
+    "invalid_auth",
+    "empty_return",
+  ]
+  def getCode(str) do
+    Enum.find_index(@code_list, fn(x) -> x == str end)
+  end
+  def returnCode(str \\ "empty_return") do
+    {:error, message: "",code: getCode(str) }
+  end
+end

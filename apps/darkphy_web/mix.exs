@@ -32,26 +32,32 @@ defmodule DarkphyWeb.Mixfile do
   #
   # Type `mix help deps` for examples and options.
   defp deps do
-    [{:phoenix, "~> 1.3.0-rc", override: true},
-     {:phoenix_pubsub, "~> 1.0"},
-     {:phoenix_ecto, "~> 3.2"},
-     {:postgrex, ">= 0.0.0"},
-     {:phoenix_html, "~> 2.6"},
-     {:phoenix_live_reload, "~> 1.0", only: :dev},
-     {:gettext, "~> 0.11"},
-     {:cowboy, "~> 1.0"},
+		[{:phoenix, "~> 1.3.0-rc",override: true},
+		{:phoenix_pubsub, "~> 1.0"},
+		{:phoenix_ecto, "~> 3.2"},
+		{:phoenix_html, "~> 2.6"},
+		{:phoenix_live_reload, "~> 1.0",only:  :dev},
+		{:plug, "~> 1.4"},
+		{:gettext, "~> 0.11"},
+		{:cowboy, "~> 1.0"},
+		{:guardian, "~> 0.14"},
+		{:poison, "~> 3.1",override: true},
+		{:snowflake, "~> 1.0.0"},
+		{:hashids, "~> 2.0"},
+		{:darkphy, in_umbrella: true},
+		{:absinthe, "~> 1.3"},
+		{:absinthe_relay, "~> 1.3"},
+		{:absinthe_plug, "~> 1.3"},
+		{:absinthe_ecto, "~> 0.1.0"},
+		{:redix, "~> 0.6.1"},
+		{:jose, "~> 1.8"},
+		{:cors_plug, "~> 1.4"}]
 
-     {:guardian, "~> 0.14"},
-     {:comeonin, "~> 3.2"},
-     {:poison, "~> 3.1", override: true},
-     #{:ecto_cassandra, "~> 1.0.0-beta.3"},
-     #{:redix, ">= 0.0.0"},
-     #{:recaptcha, "~> 2.0"},
-     {:hashids, "~> 2.0"},
+		#{:ecto_cassandra, "~> 1.0.0-beta.3"},
+		#{:redix, ">= 0.0.0"},
+		#{:recaptcha, "~> 2.0"},
 
-
-     {:darkphy, in_umbrella: true}]
-  end
+	end
 
   # Aliases are shortcuts or tasks specific to the current project.
   # For example, we extend the test task to create and migrate the database.

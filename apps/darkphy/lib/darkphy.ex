@@ -1,18 +1,13 @@
 defmodule Darkphy do
   @moduledoc """
-  Documentation for Darkphy.
+   The basic main leyer logics
   """
 
   @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Darkphy.hello
-      :world
-
+    Get user by id
   """
-  def hello do
-    :world
+
+  def authenticate(args) do
+    Auth.authenticate(args)
   end
 end

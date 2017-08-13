@@ -1,0 +1,13 @@
+digraph "dependency tree" {
+  "auth"
+  "auth" -> "mariaex" [label="~> 0.8.2"]
+  "mariaex" -> "db_connection" [label="~> 1.1"]
+  "db_connection" -> "connection" [label="~> 1.0.2"]
+  "db_connection" -> "poolboy" [label="~> 1.5"]
+  "mariaex" -> "decimal" [label="~> 1.0"]
+  "auth" -> "ecto" [label="~> 2.1"]
+  "ecto" -> "db_connection" [label="~> 1.1"]
+  "ecto" -> "decimal" [label="~> 1.2"]
+  "ecto" -> "mariaex" [label="~> 0.8.0"]
+  "ecto" -> "poolboy" [label="~> 1.5"]
+}

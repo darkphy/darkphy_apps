@@ -18,8 +18,9 @@ defmodule Darkphy.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
+    [mod: {Darkphy.Application, []},
     # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [:logger]]
+    extra_applications: [:logger]]
   end
 
   # Dependencies can be Hex packages:
@@ -36,8 +37,10 @@ defmodule Darkphy.Mixfile do
   #
   # Type "mix help deps" for more examples and options
   defp deps do
-    [{:ecto, "~> 2.1"},
-    {:mariaex, "~> 0.8.2"},
-    {:snowflake, "~> 1.0.0"}]
-  end
+		[{:ecto, "~> 2.1"},
+		{:mariaex, "~> 0.8.2"},
+		{:auth, in_umbrella: true}]
+
+
+	end
 end

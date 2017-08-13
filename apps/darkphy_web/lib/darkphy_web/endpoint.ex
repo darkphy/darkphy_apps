@@ -42,6 +42,8 @@ defmodule DarkphyWeb.Endpoint do
     key: "_darkphy_web_key",
     signing_salt: "teMH+Jdt"
 
+  plug CORSPlug, origin: ["http://darkphy.dev:3000"]
+
   plug DarkphyWeb.Plug.Subdomain, DarkphyWeb.SubdomainRouter
   plug DarkphyWeb.Router
 
