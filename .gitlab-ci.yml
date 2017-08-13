@@ -10,7 +10,6 @@ variables:
 before_script:
   # Setup phoenix dependencies
   - apt-get update
-  - apt-get install -y mysql-client redis-server
   - mix local.hex --force
   - mix deps.get --only test
   - mix ecto.reset
