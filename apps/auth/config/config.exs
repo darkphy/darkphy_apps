@@ -2,9 +2,10 @@
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
-hostname = "localhost"
-if Mix.env === "test" do
-  hostname="mysql"
+hostname =
+case Mix.env === "" do
+  "test" -> "mysql"
+  _ -> "localhost"
 end
 
 
