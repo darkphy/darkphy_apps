@@ -3,6 +3,10 @@
 use Mix.Config
 
 
+hostname = "localhost"
+if Mix.env === "test" do
+  hostname="mysql"
+end
 
 # Configure your database
 config :darkphy, Darkphy.Repo,
@@ -10,7 +14,7 @@ config :darkphy, Darkphy.Repo,
   username: "mother",
   password: "fucker",
   database: "darkphy",
-  hostname: "localhost",
+  hostname: hostname,
   pool_size: 10
 
 

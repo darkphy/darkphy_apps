@@ -2,12 +2,18 @@
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
+hostname = "localhost"
+if Mix.env === "test" do
+  hostname="mysql"
+end
+
+
 config :auth, Auth.Repo,
   adapter: Ecto.Adapters.MySQL,
   username: "mother",
   password: "fucker",
   database: "darkphy",
-  hostname: "localhost",
+  hostname: hostname,
   pool_size: 10
 
 config :auth,

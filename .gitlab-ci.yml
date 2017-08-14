@@ -4,6 +4,18 @@ services:
   - mysql
   - redis
 
+
+variables:
+  # Configure mysql service (https://hub.docker.com/_/mysql/)
+  MYSQL_DATABASE: darkphy
+  MYSQL_USER: mother
+  MYSQL_PASSWORD: fucker
+
+connect:
+  image: mysql
+  script:
+  - mysql --user="$MYSQL_USER" --password="$MYSQL_PASSWORD" --host=mysql "$MYSQL_DATABASE"
+
 variables:
   MIX_ENV: "test"
 
