@@ -10,12 +10,17 @@ variables:
   MYSQL_DATABASE: darkphy
   MYSQL_USER: mother
   MYSQL_PASSWORD: fucker
+  MYSQL_ROOT_USER: root
+  MYSQL_ROOT_PASSWORD: password
+  MIX_ENV: "test"
 
 connect:
   image: mysql
-  
-variables:
-  MIX_ENV: "test"
+  script:
+  - service mysql start
+  - echo "CREATE user '$MYSQL_USER'@'mysql' IDENTIFIED BY '$MYSQL_PASSWORD'" | mysql --user="$MYSQL_ROOT_USER" --password="$MYSQL_ROOT_PASSWORD"
+  - echo "CREATE DATABASE IF NOT EXISTS `$MYSQL_DATABASE` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_general_ci`"" | mysql --user="$MYSQL_USER" --password="$MYSQL_PASSWORD"
+
 
 before_script:
   # Setup phoenix dependencies
