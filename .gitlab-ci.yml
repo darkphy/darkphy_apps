@@ -2,31 +2,35 @@ image: elixir:latest
 
 services:
   - redis
+  - mysql
 
 variables:
   MIX_ENV: "test"
+  MYSQL_DATABASE: darkphy
+  MYSQL_USER: mother
+  MYSQL_PASSWORD: fucker
 
 stages:
   - mysql_build
+  - test
 
 mysql_build:
   stage: mysql_build
   variables:
-    MYSQL_DATABASE: darkphy
-    MYSQL_USER: mother
-    MYSQL_PASSWORD: fucker
     MYSQL_ROOT_USER: root
     MYSQL_ROOT_PASSWORD: password
-  services:
-    - mysql
-  image: mysql
   before_script:
     - mysql --version
-    - apt-get update
+  script:
+    - echo "SELECT 'OK';" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host=mysql "${MYSQL_DATABASE}"
+
+test:
+  stage: test
+  before_script:
+    # Setup phoenix dependencies
     - mysql --version
     - mix local.rebar --force
     - mix local.hex --force
     - mix deps.get --only test
   script:
-    - echo "SELECT 'OK';" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host=mysql "${MYSQL_DATABASE}"
     - mix test
