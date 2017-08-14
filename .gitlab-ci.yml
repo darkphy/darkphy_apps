@@ -13,9 +13,7 @@ variables:
 
 connect:
   image: mysql
-  script:
-  - mysql --user="$MYSQL_USER" --password="$MYSQL_PASSWORD" --host=mysql "$MYSQL_DATABASE"
-
+  
 variables:
   MIX_ENV: "test"
 
