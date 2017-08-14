@@ -6,8 +6,12 @@ services:
 variables:
   MIX_ENV: "test"
 
+stages:
+  - mysql_build
+  - test
 
 mysql_build:
+  stage: mysql_build
   variables:
     MYSQL_DATABASE: darkphy
     MYSQL_USER: mother
@@ -23,6 +27,7 @@ mysql_build:
   - echo "SELECT 'OK';" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host=mysql "${MYSQL_DATABASE}"
 
 test:
+  stage: test
   before_script:
     # Setup phoenix dependencies
     - apt-get update
