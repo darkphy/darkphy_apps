@@ -7,8 +7,7 @@ use Mix.Config
 
 # General application configuration
 config :darkphy_web,
-  namespace: DarkphyWeb,
-  ecto_repos: [DarkphyWeb.Repo]
+  namespace: DarkphyWeb
 
 # Configures the endpoint
 config :darkphy_web, DarkphyWeb.Endpoint,
