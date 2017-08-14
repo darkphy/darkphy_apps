@@ -29,6 +29,7 @@ test:
   before_script:
     # Setup phoenix dependencies
     - mysql --version
+    - service mysql start
     - mix deps.get --only test
   script:
     - mix test
