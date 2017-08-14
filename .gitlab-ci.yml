@@ -10,13 +10,12 @@ variables:
   MIX_ENV: "test"
 
 services:
-  - mysql
   - redis
 
 before_script:
   # Setup phoenix dependencies
   - apt-get update
-  - apt-get -y install mysql-client
+  - apt-get -y install mysql-server mysql-client
   - service mysql start
   - echo "CREATE user '$MYSQL_USER'@'mysql' IDENTIFIED BY '$MYSQL_PASSWORD'" | mysql --user="$MYSQL_ROOT_USER" --password="$MYSQL_ROOT_PASSWORD"
   - echo "CREATE DATABASE IF NOT EXISTS `$MYSQL_DATABASE` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_general_ci`"" | mysql --user="$MYSQL_USER" --password="$MYSQL_PASSWORD"
