@@ -1,19 +1,24 @@
-image: ricking06/darkphy-docker
+.job_template: &defaults  # Hidden key that defines an anchor named 'job_definition'
+  image: ricking06/darkphy-docker
+  services:
+    - mysql
+    - redis
 
 variables:
   MIX_ENV: "test"
   MYSQL_DATABASE: darkphy
   MYSQL_USER: mother
   MYSQL_PASSWORD: fucker
+  MYSQL_ALLOW_EMPTY_PASSWORD: "1"
+
 
 stages:
   - mysql_build
   - test
 
 mysql_build:
+  <<: *defaults
   stage: mysql_build
-  services:
-    - mysql
   variables:
     MYSQL_ROOT_USER: root
     MYSQL_ROOT_PASSWORD: password
@@ -23,9 +28,7 @@ mysql_build:
     - echo "SELECT 'OK';" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host=mysql "${MYSQL_DATABASE}"
 
 test:
-  services:
-    - redis
-    - mysql
+  <<: *defaults
   stage: test
   before_script:
     # Setup phoenix dependencies
