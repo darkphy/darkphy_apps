@@ -5,10 +5,9 @@
     MYSQL_DATABASE: darkphy
     MYSQL_USER: mother
     MYSQL_PASSWORD: fucker
-    MYSQL_ALLOW_EMPTY_PASSWORD: "1"  
+    MYSQL_ALLOW_EMPTY_PASSWORD: "1"
   services:
     - mysql/mysql-server:8.0.0
-    - redis
 
 
 
