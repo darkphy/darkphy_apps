@@ -7,7 +7,7 @@
     MYSQL_PASSWORD: fucker
     MYSQL_ALLOW_EMPTY_PASSWORD: "1"
   services:
-    - mysql/mysql-server:8.0.0
+    - mysql/mysql-server
 
 
 
