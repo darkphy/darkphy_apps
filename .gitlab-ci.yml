@@ -13,7 +13,6 @@ variables:
 
 
 stages:
-  - mysql_build
   - test
 
 mysql_build:
