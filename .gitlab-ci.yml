@@ -36,6 +36,7 @@ test:
     # Setup phoenix dependencies
     - mysql --version
     - ps aux | grep mysql
+    - lsof -i :3306
     - mix deps.get --only test
   script:
     - mix test
