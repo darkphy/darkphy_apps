@@ -1,7 +1,7 @@
 .job_template: &defaults  # Hidden key that defines an anchor named 'job_definition'
   image: ricking06/darkphy-docker
   services:
-    - mysql
+    - mysql/mysql-server:8.0.0
     - redis
 
 variables:
