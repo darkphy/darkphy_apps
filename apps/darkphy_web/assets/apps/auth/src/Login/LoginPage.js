@@ -92,22 +92,24 @@ class LoginPage extends React.Component {
             <Paper className={cx(classes.paper)} >
               <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex} animateHeight={true}>
                 <TabContainer>
+                <Div>
                   {
-                    <Div>
                       (currentHit) ?
                       <Div>
-                        <Typography type="headline">
-                          {`${LangarStore.getW("hi")}, ${currentHit.name.split(" ")[0]}`}
-                        </Typography>
+                        <Div>
+                          <Typography type="headline">
+                            {`${LangarStore.getW("hi")}, ${currentHit.name.split(" ")[0]}`}
+                          </Typography>
+                        </Div>
+                        <FaDiv>
+                          <Fa><Avatar profile={currentHit} /></Fa>
+                          <Fa>{currentHit.email}</Fa>
+                        </FaDiv>
                       </Div>
-                      <FaDiv>
-                        <Fa><Avatar profile={currentHit} /></Fa>
-                        <Fa>{currentHit.email}</Fa>
-                      </FaDiv>
-                    </Div>
-                    : <Typography type="headline">{LangarStore.getW("sign_in")}</Typography>
+                      :
+                      (<Typography type="headline">{LangarStore.getW("sign_in")}</Typography>)
                   }
-                  </Typography>
+                  </Div>
                   <LoginForm handleChangeIndex={this.handleChangeIndex} setStateFromChild={this.setStateFromChild} />
                 </TabContainer>
                 <TabContainer>

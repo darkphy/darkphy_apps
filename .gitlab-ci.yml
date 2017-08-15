@@ -5,6 +5,7 @@
     MYSQL_DATABASE: darkphy
     MYSQL_USER: mother
     MYSQL_PASSWORD: fucker
+    MYSQL_ALLOW_EMPTY_PASSWORD: "1"
     MYSQL_ROOT_USER: root
     MYSQL_ROOT_PASSWORD: password
     MYSQL_HOSTNAME: mysql
@@ -36,7 +37,9 @@ test:
     # Setup phoenix dependencies
     - mysql --version
     - ps aux | grep mysql
-    - echo "show processlist" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}"
+    - which mysql && until mysql -u root -e "show status" &>/dev/null; do sleep 1; done
+    
+    #- echo "show processlist" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}"
     #- echo "CREATE USER '${MYSQL_USER}'@'${MYSQL_HOSTNAME}' IDENTIFIED BY '${MYSQL_PASSWORD}'" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host="${MYSQL_HOSTNAME}"
     #- mix deps.get --only test
   script:
