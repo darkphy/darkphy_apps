@@ -7,7 +7,7 @@ case Mix.env === "" do
   "test" -> "mysql"
   _ -> "localhost"
 end
-
+IO.inspect hostname
 # Configure your database
 config :darkphy, Darkphy.Repo,
   adapter: Ecto.Adapters.MySQL,
