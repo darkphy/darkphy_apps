@@ -1,11 +1,13 @@
 import React from 'react';
 import { Avatar } from 'material-ui';
 
-export const Avatar = (props) => {
-  const { profile } = props;
+class AvatarX extends React.Component{
   render(){
+    const { profile } = props;
     return(
       <Avatar alt={profile.name} src={profile.pp} />
     );
   }
 }
+
+export default AvatarX;

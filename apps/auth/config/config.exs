@@ -3,7 +3,7 @@
 use Mix.Config
 
 hostname =
-case Mix.env === "" do
+case Mix.env do
   "test" -> "mysql"
   _ -> "localhost"
 end
