@@ -15,16 +15,17 @@ variables:
 stages:
   - test
 
-mysql_build:
-  <<: *defaults
-  stage: mysql_build
-  variables:
-    MYSQL_ROOT_USER: root
-    MYSQL_ROOT_PASSWORD: password
-  before_script:
-    - mysql --version
-  script:
-    - echo "SELECT 'OK';" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host=mysql "${MYSQL_DATABASE}"
+
+#mysql_build:
+#  <<: *defaults
+#  stage: mysql_build
+#  variables:
+#    MYSQL_ROOT_USER: root
+#    MYSQL_ROOT_PASSWORD: password
+#  before_script:
+#    - mysql --version
+#  script:
+#    - echo "SELECT 'OK';" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host=mysql "${MYSQL_DATABASE}"
 
 test:
   <<: *defaults
