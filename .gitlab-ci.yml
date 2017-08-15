@@ -6,6 +6,8 @@
     MYSQL_USER: mother
     MYSQL_PASSWORD: fucker
     MYSQL_ALLOW_EMPTY_PASSWORD: "1"
+    MYSQL_ROOT_USER: root
+    MYSQL_ROOT_PASSWORD: password
   services:
     - mysql/mysql-server
 
@@ -33,6 +35,7 @@ test:
   before_script:
     # Setup phoenix dependencies
     - mysql --version
+    - ps aux | grep mysql
     - mix deps.get --only test
   script:
     - mix test
