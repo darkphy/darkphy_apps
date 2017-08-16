@@ -9,7 +9,7 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const vendor = [
   'react',
   'react-dom',
-  'react-relay',
+  'react-apollo',
   'react-router',
   'react-router-dom',
   'mobx',
@@ -34,7 +34,6 @@ module.exports = Object.assign({}, webpackBaseConfig, {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
-    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         screw_ie8: true,

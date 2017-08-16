@@ -12,6 +12,6 @@ defmodule AuthTest do
   end
 
   def makepass(pw) do
-    Comeonin.Argon2.hashpwsalt(blank_pass)
+    Comeonin.Argon2.hashpwsalt(pw)
   end
 end
