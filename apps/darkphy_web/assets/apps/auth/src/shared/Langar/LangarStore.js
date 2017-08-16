@@ -14,7 +14,6 @@ const getAmericanWords = () => {
       words[`e_${x.k}_t`] = x.t;
       words[`e_${x.k}_d`] = x.d;
   });
-  console.log(words);
   return words;
 }
 const errrorParseKey = (key,type) => {
@@ -59,16 +58,18 @@ class LangarStore{
       }
     }
     getLangFromFirebase(code){
-      /*
-        axios
-          .get(`https://darkphy-2c8a8.firebaseio.com/${code}.json`)
-          .then((data) => {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
               let words = [];
-              let res = ajaxTechnical(data);
+              let res = xhttp.responseText;
               if(!res) return
-              this.createLanguage(res,true);
-          });
-          */
+              this.createLanguage(res, true);
+           }
+        };
+        xhttp.open("GET", `https://darkphy-2c8a8.firebaseio.com/${code}.json`, true);
+        xhttp.send();
+
           /*
           {
             info : {code: ,title:},
@@ -78,6 +79,9 @@ class LangarStore{
 
     }
     getE = (error_code) => {
+      if(!er[error_code]){
+        return undefined;
+      }
       let error_key = getKeyFromError(er[error_code].t);
       let errorObj = {
         title : this.getW(errrorParseKey(error_key,'t')),

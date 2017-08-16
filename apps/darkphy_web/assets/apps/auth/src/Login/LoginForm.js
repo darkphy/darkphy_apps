@@ -10,8 +10,8 @@ import cx from 'classnames';
 import { withApollo, gql } from 'react-apollo'
 
 import legendcss from '../css/legend.css';
-import { AUTH_TOKEN, REFRESH_TOKEN } from '../shared/utils/constants.js';
-import { queryGQL } from '../shared/graphql/xhr.js';
+import { AUTH_TOKEN, REFRESH_TOKEN } from 'shared/utils/constants.js';
+import { queryGQL } from 'shared/graphql/xhr.js';
 //import { withGraphQL } from 'react-apollo-decorators';
 
 const swipeableHeight = '240px';

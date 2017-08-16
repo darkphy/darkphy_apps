@@ -5,13 +5,13 @@ import { Switch, Route } from 'react-router-dom';
 import cx from 'classnames';
 import { Provider } from 'mobx-react';
 
-import DevTools from 'mobx-react-devtools'; //only dev
 
-import { DarkError, DarkErrorStore } from './shared';
+import { DarkError, DarkErrorStore } from 'shared';
 import Login from './Login';
 
 import { createStyleSheet, withStyles } from 'material-ui/styles';
 
+import DevTools from 'mobx-react-devtools';
 
 const MainRoutes = () => (
   <main>
@@ -67,6 +67,10 @@ class AppMain extends React.Component {
   }
   render() {
     const { classes, theme, Atmosphere, stores } = this.props;
+    let dvtools = null;
+    if (process.env.NODE_ENV !== 'development') {
+      dvtools = (<DevTools />);
+    }
     return (
       <Provider {...stores} DarkErrorStore={DStore} >
           <div
@@ -79,7 +83,7 @@ class AppMain extends React.Component {
                   <MainRoutes />
                 </Atmosphere>
                 <DarkError overlayClassName={classes.overlay} />
-                <DevTools />
+                {dvtools}
           </div>
         </Provider>
     );

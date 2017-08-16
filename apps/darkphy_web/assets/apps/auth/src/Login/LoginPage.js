@@ -12,8 +12,8 @@ import cx from 'classnames';
 
 import { SignupForm } from '../Signup';
 import LoginForm from './LoginForm.js';
-import { Avatar } from '../shared';
-import { AUTH_TOKEN, USER_LIST } from '../shared/utils/constants.js';
+import { Avatar } from 'shared';
+import { AUTH_TOKEN, USER_LIST } from 'shared/utils/constants.js';
 import legendcss from '../css/legend.css';
 
 const swipeableHeight = '280px';

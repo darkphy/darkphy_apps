@@ -3,7 +3,8 @@ const webpack = require('webpack');
 const path = require('path');
 const pkg = require('./package.json');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const sharedModule = path.resolve(__dirname, 'src/shared/');
+console.log(sharedModule);
 module.exports = {
   context: path.resolve(__dirname),
   plugins: [
@@ -23,6 +24,7 @@ module.exports = {
     alias: {
       //'material-son': path.resolve('../../../../../../../material-son/src'),
       'utube': path.resolve(__dirname, '../../../../../../../utube/src'),
+      'shared': sharedModule,
       //'material-ui-icons': path.resolve(__dirname, '../packages/material-ui-icons/src'),
     },
   },
@@ -38,6 +40,7 @@ module.exports = {
         test: /\.js$/,
         exclude: [/node_modules/],
         loader: 'babel-loader',
+        include: [sharedModule, path.join(__dirname, 'src')],
         query: {
           cacheDirectory: true,
         },

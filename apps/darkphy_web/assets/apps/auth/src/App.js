@@ -11,11 +11,11 @@ import jss  from 'jss';
 import preset from 'jss-preset-default';
 
 
-import { darkPrimary } from './shared/utils/styles.js';
+import { darkPrimary } from 'shared/utils/styles.js';
 import AppStore from './AppStore';
-import { LangarStore } from './shared';
+import { LangarStore } from 'shared';
 
-import Atmosphere from './shared/graphql/Atmosphere.js';
+import Atmosphere from 'shared/graphql/Atmosphere.js';
 import AppMain from './AppMain';
 
 const stores = {

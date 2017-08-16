@@ -21,7 +21,7 @@ defmodule Auth do
       if check_password(user, password) do
         {:ok,user}
       else
-        {:error,"sorry not match pass bro"}
+        {:error,}
       end
   end
 
