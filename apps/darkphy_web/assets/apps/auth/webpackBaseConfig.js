@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const path = require('path');
 const pkg = require('./package.json');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const sharedModule = path.resolve(__dirname, 'src/shared/');
+const sharedModule = path.resolve(__dirname, '../shared/');
 console.log(sharedModule);
 module.exports = {
   context: path.resolve(__dirname),

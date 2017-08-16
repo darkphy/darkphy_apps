@@ -8,7 +8,7 @@
     MYSQL_ALLOW_EMPTY_PASSWORD: "1"
     MYSQL_ROOT_USER: root
     MYSQL_ROOT_PASSWORD: password
-    MYSQL_HOSTNAME: mysql
+    MYSQL_HOSTNAME: 127.0.0.1
   services:
     - mysql/mysql-server
 
@@ -37,7 +37,7 @@ test:
     # Setup phoenix dependencies
     - mysql --version
     - ps aux | grep mysql
-    - echo "SELECT 'OK';" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host=mysql "${MYSQL_DATABASE}"    
+    - echo "SELECT 'OK';" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host=mysql "${MYSQL_DATABASE}"
     - echo "show processlist" | mysql -u root
     #- echo "CREATE USER '${MYSQL_USER}'@'${MYSQL_HOSTNAME}' IDENTIFIED BY '${MYSQL_PASSWORD}'" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host="${MYSQL_HOSTNAME}"
     # echo "CREATE DATABASE IF NOT EXISTS `gitlabhq_production` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_general_ci`"
