@@ -10,7 +10,7 @@
     MYSQL_ROOT_PASSWORD: password
     MYSQL_HOSTNAME: 127.0.0.1
   services:
-    - mysql/mysql-server
+    - mysql
 
 
 
