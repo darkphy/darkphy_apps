@@ -41,7 +41,7 @@ test_elixir:
     #- echo "SELECT 'OK';" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host="${MYSQL_HOSTNAME}" "${MYSQL_DATABASE}"
     #- echo "show processlist" | mysql -u root
     - echo "CREATE USER '${MYSQL_USER}'@'${MYSQL_HOSTNAME}' IDENTIFIED BY '${MYSQL_PASSWORD}'" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host="${MYSQL_HOSTNAME}"
-    - echo "CREATE DATABASE IF NOT EXISTS `${MYSQL_DATABASE}` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_general_ci`" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host="${MYSQL_HOSTNAME}"
+    - echo "CREATE DATABASE IF NOT EXISTS `darkphy` DEFAULT CHARACTER SET `utf8` COLLATE `utf8_general_ci`" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host=mysql
     - mix deps.get --only test
   script:
     - mix test
