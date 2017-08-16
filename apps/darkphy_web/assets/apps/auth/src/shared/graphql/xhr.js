@@ -14,8 +14,11 @@ export const queryGQL = ({ client, DarkErrorStore, LangarStore }, query , variab
       }
     })
     .catch( (err) => {
-        if(!err.graphQLErrors) return false;
-          const code = err.graphQLErrors[0].code;
+          let code = 0;
+          if(!err.graphQLErrors) return false;
+          if(err.graphQLErrors[0]){
+             code = err.graphQLErrors[0].code;
+          }
           DarkErrorStore.setErrorParams(LangarStore.getE(code));
           DarkErrorStore.activateError({code : code})
           resolve();

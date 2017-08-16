@@ -10,7 +10,7 @@ import cx from 'classnames';
 import { withApollo, gql } from 'react-apollo'
 
 import legendcss from '../css/legend.css';
-import { __RELAY_API_ENDPOINT__ } from '../shared/utils/constants.js';
+import { AUTH_TOKEN, REFRESH_TOKEN } from '../shared/utils/constants.js';
 import { queryGQL } from '../shared/graphql/xhr.js';
 //import { withGraphQL } from 'react-apollo-decorators';
 
@@ -24,7 +24,7 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const CheckEmail = gql`
+const EmailCheck = gql`
   query EmailCheck($email: String!) {
     checkEmail(email: $email) {
       id,
@@ -34,15 +34,27 @@ const CheckEmail = gql`
     }
   }
 `;
+
+const SignIn = gql`
+  query SignIn($email: String!, $password: String!) {
+    oauth(email: $email, password: $password) {
+      id,
+      access_token,
+      refresh_token,
+    }
+  }
+`;
 @withApollo
 @inject('LangarStore','DarkErrorStore') @observer
 class LoginForm extends React.Component{
   static propTypes = {
     handleChangeIndex: PropTypes.func.isRequired,
-    setStateFromChild: PropTypes.func.isRequired,
+    setCurrentHit: PropTypes.func.isRequired,
+    addUserList: PropTypes.func.isRequired,
   }
   constructor(props){
     super(props);
+    this.currentHit = {};
     this.state = {
       index: 0,
       emailField: '',
@@ -61,23 +73,25 @@ class LoginForm extends React.Component{
     return(
     <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex} animateHeight={true}>
         <TabContainer>
-          <TextField
-            styleName='mar-20-0'
-            value={emailField}
-            onChange={this.handleEmailField}
-            label={LangarStore.getW("emailphone")}
-            type="email"
-            fullWidth />
-            <Link faded to="/forgotemail">Forgot Email?</Link>
-          <AButton
-            styleName='pad-20 mar-20-0'
-            onClick={this.checkEmail}
-            color="primary"
-            fullWidth
-            pendingText={<CircularProgress size={14}/>}
-            raised >
-            {LangarStore.getW("next")}
-          </AButton>
+          <form>
+            <TextField
+              styleName='mar-20-0'
+              value={emailField}
+              onChange={this.handleEmailField}
+              label={LangarStore.getW("emailphone")}
+              type="email"
+              fullWidth />
+              <Link faded to="/forgotemail">Forgot Email?</Link>
+            <AButton
+              onClick={this.handleCheckEmail}
+              type="submit"
+              styleName='pad-20 mar-20-0'
+              color="primary"
+              fullWidth
+              raised >
+              {LangarStore.getW("next")}
+            </AButton>
+          </form>
           <Div
             styleName='mar-20-0'
             >
@@ -86,23 +100,26 @@ class LoginForm extends React.Component{
           </Div>
         </TabContainer>
         <TabContainer>
-          <TextField
-            styleName='mar-20-0'
-            value={passwordField}
-            onChange={this.handlePasswordField}
-            label={LangarStore.getW("pass")}
-            InputProps={{ placeholder: LangarStore.getW("pass") }}
-            type="password"
-            fullWidth />
-          <Link faded to="/forgot">Forgot password?</Link>
-          <Button
-            styleName='pad-20 mar-20-0'
-            raised
-            fullWidth
-            color="primary"
-          >
+          <form>
+            <TextField
+              styleName='mar-20-0'
+              value={passwordField}
+              onChange={this.handlePasswordField}
+              label={LangarStore.getW("pass")}
+              InputProps={{ placeholder: LangarStore.getW("pass") }}
+              type="password"
+              fullWidth />
+            <Link faded to="/forgot">Forgot password?</Link>
+            <AButton
+              onClick={this.handleSignIn}
+              styleName='pad-20 mar-20-0'
+              color="primary"
+              type="submit"
+              raised
+              fullWidth >
             {LangarStore.getW("sign_in")}
-          </Button>
+          </AButton>
+         </form>
           <Div>
             <Span styleName='hint'>Missed Something? </Span>
             <Link onClick={()=>{ this.handleChangeIndex(0); }} to="/#">Go back</Link>
@@ -111,17 +128,43 @@ class LoginForm extends React.Component{
       </SwipeableViews>
     );
   }
-  checkEmail = () => {
+  handleSignIn = () => {
     const { DarkErrorStore, LangarStore } = this.props;
-    return queryGQL(this.props, CheckEmail, { "email": this.state.emailField },(res)=>{
+    return queryGQL(this.props, SignIn, {
+      email: this.state.emailField,
+      password: this.state.passwordField,
+     },(res)=>{
+       const { access_token, refresh_token, id } = res;
+       localStorage.setItem(AUTH_TOKEN, access_token);
+       localStorage.setItem(REFRESH_TOKEN, refresh_token);
+
+       const user = Object.assign({},this.currentHit,{id, access_token, refresh_token});
+       this.props.addUserList(user);
+    });
+  }
+  handleCheckEmail = (e) => {
+    e.preventDefault();
+    const { DarkErrorStore, LangarStore } = this.props;
+    return queryGQL(this.props, EmailCheck, {
+      email: this.state.emailField,
+    },(res)=>{
       this.handleChangeIndex(1);
-      this.props.setStateFromChild(res);
+      this.currentHit = {
+        email: res.email,
+        name: res.name,
+        pp: res.pp,
+      };
+      this.props.setCurrentHit(res);
     });
   }
   handleEmailField = (e: object) => {
     this.setState({ emailField: e.target.value });
   }
   handlePasswordField = (e: object) => {
+    if(e.keyCode == 13){
+      this.handleSignIn();
+      return false;
+    }
     this.setState({ passwordField: e.target.value });
   }
   handleChangeIndex = (index) => {

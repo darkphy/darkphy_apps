@@ -9,6 +9,8 @@ export const AMERICAN_WORDS = {
   sign_in: "Sign In",
   join: "Join",
   search: "Search",
+  choose_account: "Choose an Account",
+  another_account: "Use another Account",
   agree_terms: "By clicking Create Account you accept the terms and conditions.",
   bday: "Birthday",
   bday_save: "Save Birthday",
@@ -21,7 +23,17 @@ export const AMERICAN_WORDS = {
 
   next: "Next",
 };
-export const AMERICAN_ERRORS = {
-  1 : { k : "bad_parameters", t : "Bad Parameters", d : "Some information required is not given."} ,
-  4 : { k : "unauth", t : "Unauthenticated", d : "You are being logged out."} ,
-};
+export const AMERICAN_ERRORS = [
+  { t : "Network Error", d : "Check your internet!"} ,
+  { t : "Bad Parameters", d : "Some information required is not given"} ,
+  { t : "Invalid Captcha", d : "You are a robot"} ,
+  { t : "Not Found", d : "Whatever youre looking for has been moved or removed"} ,
+  { t : "Unauthenticated", d : "You are being logged out"} ,
+  { t : "Nothing Returned", d : "Looks like "} ,
+];
+export const getKeyFromError = (str) => {
+  return str.toLowerCase().split(" ").join("_");
+}
+export const AUTH_TOKEN = "AUTH_TOKEN";
+export const REFRESH_TOKEN = "REFRESH_TOKEN";
+export const USER_LIST = "USER_LIST";

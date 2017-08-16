@@ -2,21 +2,20 @@ import { observable, action, computed } from 'mobx';
 import store from 'store';
 
 import { axiosReturn } from '../utils';
-import { AMERICAN_ERRORS, AMERICAN_WORDS, UI_LANGUAGE , UI_LANGUAGE_CODE } from '../utils/constants.js';
+import { getKeyFromError, AMERICAN_ERRORS, AMERICAN_WORDS, UI_LANGUAGE , UI_LANGUAGE_CODE } from '../utils/constants.js';
 
 
 
 const er = AMERICAN_ERRORS;
 const getAmericanWords = () => {
   let words = AMERICAN_WORDS;
-
-    for(let x in er){
-      if (er.hasOwnProperty(x)) {
-        words[`e_${er[x].k}_t`] = er[x].t;
-        words[`e_${er[x].k}_d`] = er[x].d;
-      }
-    }
-    return words;
+  er.map((x)=> {
+      x.k = getKeyFromError(x.t);
+      words[`e_${x.k}_t`] = x.t;
+      words[`e_${x.k}_d`] = x.d;
+  });
+  console.log(words);
+  return words;
 }
 const errrorParseKey = (key,type) => {
   let a = "";
@@ -79,7 +78,7 @@ class LangarStore{
 
     }
     getE = (error_code) => {
-      let error_key = er[error_code].k;
+      let error_key = getKeyFromError(er[error_code].t);
       let errorObj = {
         title : this.getW(errrorParseKey(error_key,'t')),
         description : this.getW(errrorParseKey(error_key,'d'))
