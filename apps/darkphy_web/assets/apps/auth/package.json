@@ -6,10 +6,12 @@
   "scripts": {
     "start": "npm run clean && npm run start:dll && node webpack.dev.server.js",
     "start:dll": "webpack --config webpack.dll.config.js",
-    "build": "npm run clean && npm run build:dll && cross-env NODE_ENV=production webpack --config webpack.prod.config.js",
+    "build": "npm run clean && npm run copy:shared && npm run build:dll && cross-env NODE_ENV=production webpack --config webpack.prod.config.js && npm run clean:shared",
     "build:dll": "cross-env NODE_ENV=production webpack --config webpack.dll.prod.config.js",
     "test": "cross-env NODE_ENV=test jest src/{,**/}*.spec.js",
-    "clean": "rimraf build"
+    "clean": "rimraf build",
+    "copy:shared": "cp -r ../shared src/shared",
+    "clean:shared": "rimraf src/shared"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

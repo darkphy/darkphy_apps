@@ -1,12 +1,12 @@
 // @flow
-import React from 'react';
-import { observer, inject } from 'mobx-react';
-import PropTypes from 'prop-types';
+import React from 'npmmod/react';
+import { observer, inject } from 'npmmod/mobx-react';
+import PropTypes from 'npmmod/prop-types';
 
-import { Icon } from 'material-ui';
-import { FaDiv, Div, Button } from 'material-son';
-import { createStyleSheet, withStyles } from 'material-ui/styles';
-import cx from 'classnames';
+import { Icon } from 'npmmod/material-ui';
+import { FaDiv, Div, Button } from 'npmmod/material-son';
+import { createStyleSheet, withStyles } from 'npmmod/material-ui/styles';
+import cx from 'npmmod/classnames';
 
 const styleSheet = createStyleSheet({
   icon: {

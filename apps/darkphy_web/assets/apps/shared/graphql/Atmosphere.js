@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'npmmod/react';
 import { __RELAY_API_ENDPOINT__ } from '../utils/constants.js';
-import { ApolloProvider, createNetworkInterface, ApolloClient } from 'react-apollo'
+import { ApolloProvider, createNetworkInterface, ApolloClient } from 'npmmod/react-apollo'
 
 const networkInterface = createNetworkInterface({
   uri: __RELAY_API_ENDPOINT__,

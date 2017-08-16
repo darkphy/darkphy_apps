@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Avatar } from 'material-ui';
+import React from 'npmmod/react';
+import PropTypes from 'npmmod/prop-types';
+import { Avatar } from 'npmmod/material-ui';
 
 class AvatarX extends React.Component{
   static PropTypes = {

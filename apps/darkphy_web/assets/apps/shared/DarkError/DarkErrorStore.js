@@ -1,5 +1,5 @@
 // @flow
-import { action,observable } from 'mobx';
+import { action,observable } from 'npmmod/mobx';
 
 class DarkErrorStore {
 
