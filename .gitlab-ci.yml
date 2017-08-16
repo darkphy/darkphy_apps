@@ -30,7 +30,7 @@ mysql_build:
   before_script:
     - mysql --version
   script:
-    - echo "SELECT 'OK';" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host="${MYSQL_HOSTNAME}"
+    - echo "SELECT 'OK';" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host="${MYSQL_HOSTNAME}" "${MYSQL_DATABASE}"
 
 test_elixir:
   <<: *defaults
