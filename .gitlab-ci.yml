@@ -16,21 +16,23 @@
 
 
 stages:
-  - test
+  - mysql_build
+  - test_elixir
+  - test_javascript
 
 
-#mysql_build:
-#  <<: *defaults
-#  stage: mysql_build
-#  variables:
-#    MYSQL_ROOT_USER: root
-#    MYSQL_ROOT_PASSWORD: password
-#  before_script:
-#    - mysql --version
-#  script:
-# - echo "SELECT 'OK';" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host=mysql "${MYSQL_DATABASE}"
+mysql_build:
+  <<: *defaults
+  stage: mysql_build
+  variables:
+    MYSQL_ROOT_USER: root
+    MYSQL_ROOT_PASSWORD: password
+  before_script:
+    - mysql --version
+  script:
+ - echo "SELECT 'OK';" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host=mysql "${MYSQL_DATABASE}"
 
-test:
+test_elixir:
   <<: *defaults
   stage: test
   before_script:
@@ -44,3 +46,13 @@ test:
     - mix deps.get --only test
   script:
     - mix test
+
+test_javascript:
+    <<: *defaults
+    stage: test
+    before_script:
+      - cd
+    script:
+      - cd apps/darkphy_web/assets/auth/
+      - yarn install
+      - yarn run test
