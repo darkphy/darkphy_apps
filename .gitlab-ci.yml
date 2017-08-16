@@ -52,6 +52,6 @@ test_javascript:
     before_script:
       - cd
     script:
-      - cd apps/darkphy_web/assets/apps/auth/
+      - cd /builds/darkphy/darkphy_apps/apps/darkphy_web/assets/apps/auth/
       - yarn install
       - yarn run test
