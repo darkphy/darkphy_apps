@@ -35,24 +35,26 @@ module.exports = Object.assign({}, webpackBaseConfig, {
     }),
     */
   ]),
-  module: webpackBaseConfig.module.rules.concat([
-    {
-        test: /\.(js)$/,
-        loader: require.resolve('babel-loader'),
-        exclude: [/node_modules/],
-        include: [sharedModule],
-        options: {
-            babelrc: false,
-            presets: [
-              require.resolve('babel-preset-env'),
-              require.resolve('babel-preset-react'),
-              require.resolve('babel-preset-stage-1'),
-            ],
-            plugins: [
-              require.resolve('babel-plugin-transform-decorators-legacy'),
-              require.resolve('babel-plugin-transform-class-properties'),
-            ],
-        },
-    },
-  ]),
+  module: {
+      rules: webpackBaseConfig.module.rules.concat([
+        {
+            test: /\.(js)$/,
+            loader: require.resolve('babel-loader'),
+            exclude: [/node_modules/],
+            include: [sharedModule],
+            options: {
+                babelrc: false,
+                presets: [
+                  require.resolve('babel-preset-env'),
+                  require.resolve('babel-preset-react'),
+                  require.resolve('babel-preset-stage-1'),
+                ],
+                plugins: [
+                  require.resolve('babel-plugin-transform-decorators-legacy'),
+                  require.resolve('babel-plugin-transform-class-properties'),
+                ],
+            },
+        }
+      ]),
+   },
 });

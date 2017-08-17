@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "npm run clean && npm run start:dll && node webpack.dev.server.js",
+    "start": "npm run clean && npm run start:dll && cross-env NODE_ENV=development node webpack.dev.server.js",
     "start:dll": "webpack --config webpack.dll.config.js",
     "build": "npm run clean && npm run copy:shared && npm run build:dll && cross-env NODE_ENV=production webpack --config webpack.prod.config.js && npm run clean:shared",
     "build:dll": "cross-env NODE_ENV=production webpack --config webpack.dll.prod.config.js",
