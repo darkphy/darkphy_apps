@@ -81,7 +81,7 @@ class LoginForm extends React.Component{
               label={LangarStore.getW("emailphone")}
               type="email"
               fullWidth />
-              <Link faded to="/forgotemail">Forgot Email?</Link>
+              <Link faded to="/forgot">Forgot Email?</Link>
             <AButton
               onClick={this.handleCheckEmail}
               type="submit"

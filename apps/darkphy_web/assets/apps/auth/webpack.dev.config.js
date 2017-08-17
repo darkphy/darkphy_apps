@@ -1,6 +1,7 @@
 // @flow weak
 /* eslint-disable import/no-unresolved */
 const webpack = require('webpack');
+const path = require('path');
 const webpackBaseConfig = require('./webpackBaseConfig');
 const dllManifest = require('./build/dll.manifest.json');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;

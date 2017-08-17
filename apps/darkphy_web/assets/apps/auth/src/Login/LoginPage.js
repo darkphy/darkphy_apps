@@ -85,6 +85,9 @@ class LoginPage extends React.Component {
     if(userList !== false && userList!==null && userList.length > 0){
       this.userList = JSON.parse(userList);
     }
+    if(location.hash == 'join'){
+      this.handleChangeIndex(1);
+    }
   }
 
   getHeader = () => {

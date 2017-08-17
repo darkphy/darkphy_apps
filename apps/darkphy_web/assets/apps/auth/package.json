@@ -8,10 +8,16 @@
     "start:dll": "webpack --config webpack.dll.config.js",
     "build": "npm run clean && npm run copy:shared && npm run build:dll && cross-env NODE_ENV=production webpack --config webpack.prod.config.js && npm run clean:shared",
     "build:dll": "cross-env NODE_ENV=production webpack --config webpack.dll.prod.config.js",
-    "test": "cross-env NODE_ENV=test jest src/{,**/}*.spec.js",
+    "test": "npm run copy:shared && cross-env NODE_ENV=test jest && npm run clean:shared",
     "clean": "rimraf build",
-    "copy:shared": "cp -r ../shared src/shared",
+    "copy:shared": "cp -r ../shared src/shared && replace 'npmmod/' '' src/shared/ -r",
     "clean:shared": "rimraf src/shared"
+  },
+  "jest": {
+    "testMatch": [
+      "**/__tests__/**/*.js?(x)",
+      "**/?(*.)(spec|test).js?(x)"
+    ]
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -39,6 +45,7 @@
     "postcss-import": "^10.0.0",
     "postcss-loader": "^2.0.6",
     "react-hot-loader": "next",
+    "replace": "^0.3.0",
     "rimraf": "^2.6.1",
     "style-loader": "^0.18.2",
     "webpack": "^3.4.1",
