@@ -9,10 +9,9 @@ import SwipeableViews from 'react-swipeable-views';
 import cx from 'classnames';
 import { withApollo, gql } from 'react-apollo'
 
-import legendcss from '../css/legend.css';
-import { AUTH_TOKEN, REFRESH_TOKEN } from 'shared/utils/constants.js';
+import { saveToken } from 'shared/utils/auth.js';
 import { queryGQL } from 'shared/graphql/xhr.js';
-//import { withGraphQL } from 'react-apollo-decorators';
+import legendcss from '../css/legend.css';
 
 const swipeableHeight = '240px';
 const TabContainer = props =>
@@ -79,7 +78,7 @@ class LoginForm extends React.Component{
               value={emailField}
               onChange={this.handleEmailField}
               label={LangarStore.getW("emailphone")}
-              type="email"
+              type="text"
               fullWidth />
               <Link faded to="/forgot">Forgot Email?</Link>
             <AButton
@@ -96,7 +95,7 @@ class LoginForm extends React.Component{
             styleName='mar-20-0'
             >
             <Span styleName='hint'>Need an account? </Span>
-            <Link onClick={()=>{ this.props.handleChangeIndex(1) }} to="/register">Register Now</Link>
+            <Link onClick={()=>{ this.props.handleChangeIndex(1) }} to="/#join">Register Now</Link>
           </Div>
         </TabContainer>
         <TabContainer>
@@ -129,14 +128,12 @@ class LoginForm extends React.Component{
     );
   }
   handleSignIn = () => {
-    const { DarkErrorStore, LangarStore } = this.props;
     return queryGQL(this.props, SignIn, {
       email: this.state.emailField,
       password: this.state.passwordField,
      },(res)=>{
        const { access_token, refresh_token, id } = res;
-       localStorage.setItem(AUTH_TOKEN, access_token);
-       localStorage.setItem(REFRESH_TOKEN, refresh_token);
+       saveToken({access_token, refresh_token});
 
        const user = Object.assign({},this.currentHit,{id, access_token, refresh_token});
        this.props.addUserList(user);

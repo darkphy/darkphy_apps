@@ -4,10 +4,13 @@ import React from 'react';
 import { observer, inject } from 'mobx-react';
 import PropTypes from 'prop-types';
 //import { TextField } from 'material-ui';
-import { Div, Span, Link, Button, TextField } from 'material-son';
+import { Div, Span, Link, AButton, TextField } from 'material-son';
+import { withApollo, gql } from 'react-apollo'
 
 import Recaptcha from 'react-google-invisible-recaptcha';
 
+import { saveToken } from 'shared/utils/auth.js';
+import { queryGQL } from 'shared/graphql/xhr.js';
 import legendcss from '../css/legend.css';
 
 
@@ -29,7 +32,20 @@ const formatDate = (date) => {
     return [year, month, day].join('-');
 }
 
-@inject('LangarStore') @observer
+const SignUp = gql`
+  query SignUp($name: String!) {
+    join(name: $name) {
+      id,
+      name,
+      pp,
+      access_token,
+      refresh_token,
+    }
+  }
+`;
+
+@withApollo
+@inject('LangarStore','DarkErrorStore') @observer
 class SignupForm extends React.Component{
   static propTypes = {
     handleChangeIndex: PropTypes.func.isRequired
@@ -46,13 +62,6 @@ class SignupForm extends React.Component{
   componentDidMount() {
     this.recaptcha.reset();
   }
-  onSignupFormSubmit(e){
-
-    e.preventDefault();
-    this.recaptcha.reset();
-    this.setFormEvent(e.target);
-    this.recaptcha.execute();
-  }
   render (){
 
       const { LangarStore } = this.props;
@@ -60,7 +69,7 @@ class SignupForm extends React.Component{
 
 
       return (
-        <form onSubmit={(e)=>{ this.onSignupFormSubmit(e) }}>
+        <form>
               <Div>
                   <TextField
                     fullWidth
@@ -72,35 +81,51 @@ class SignupForm extends React.Component{
               <Recaptcha ref={ ref => this.recaptcha = ref } sitekey="6LeVrCIUAAAAABF7uxE3cBnqCZD7d-ZdtA2u9xLJ" onResolved={this.handleCaptchaResolved} />
             <Div>
               <Div styleName='hint mar-20-0'>{LangarStore.getW("agree_terms")}</Div>
-              <Button
+              <AButton
                 styleName='pad-20 mar-20-0'
                 raised
                 fullWidth
                 color="primary"
-                type="submit">
+                type="submit"
+                onClick={this.onSignupFormSubmit}
+                >
                 Create Account
-              </Button>
+              </AButton>
               <Div>
                 <Span styleName='hint'>Already member? </Span>
-                <Link onClick={()=>{ this.props.handleChangeIndex(0); }} to="/login">Login</Link>
+                <Link onClick={()=>{ this.props.handleChangeIndex(0); }} to="#login">Login</Link>
               </Div>
             </Div>
           </form>
       );
   }
-  setFormEvent = (formEvent: Object) => {
-    this.setState({ formEvent });
-  }
   handleFullName = (e) => {
     this.setState({ fullName: e.target.value });
+  }
+  onSignupFormSubmit = (e) => {
+    e.preventDefault();
+    this.handleCaptchaResolved();
+    //this.recaptcha.reset();
+    //this.recaptcha.execute();
   }
   handleCaptchaResolved = () => {
     return new Promise((resolve, reject) => {
       this.setState({ captchaResponse : this.recaptcha.getResponse() });
-      this.handleSignup({resolve, reject});
+      setTimeout(()=>{
+        this.handleSignup({resolve, reject});
+
+      },3000);
     });
   }
   handleSignup = ({resolve, reject}) => {
+    return queryGQL(this.props, SignUp, {
+      name: this.state.fullName,
+     },(res)=>{
+       const { access_token, refresh_token, id } = res;
+       saveToken({access_token, refresh_token});
+       const user = { id, name, pp, access_token, refresh_token };
+       this.props.addUserList(user);
+    });
     /*
     let self = this;
     const { fullName, captchaResponse } = this.state;

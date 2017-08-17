@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 import { observable, action } from 'mobx';
-
+import _ from 'lodash';
 import { Icon, List, Paper, Typography } from 'material-ui';
 import { ListItem, ListItemText, FaDiv, Fa, Span, Div } from 'material-son';
 import { createStyleSheet, withStyles } from 'material-ui/styles';
@@ -13,7 +13,7 @@ import cx from 'classnames';
 import { SignupForm } from '../Signup';
 import LoginForm from './LoginForm.js';
 import { Avatar } from 'shared';
-import { AUTH_TOKEN, USER_LIST } from 'shared/utils/constants.js';
+import { AUTH_TOKEN, USER_LIST, HASH } from 'shared/utils/constants.js';
 import legendcss from '../css/legend.css';
 
 const swipeableHeight = '280px';
@@ -85,7 +85,8 @@ class LoginPage extends React.Component {
     if(userList !== false && userList!==null && userList.length > 0){
       this.userList = JSON.parse(userList);
     }
-    if(location.hash == 'join'){
+
+    if(location.hash.substr(1) == HASH.join){
       this.handleChangeIndex(1);
     }
   }
@@ -129,7 +130,10 @@ class LoginPage extends React.Component {
           </TabContainer>
           <TabContainer>
             <Typography type="headline">{LangarStore.getW("join")}</Typography>
-            <SignupForm handleChangeIndex={this.handleChangeIndex} />
+            <SignupForm
+              handleChangeIndex={this.handleChangeIndex}
+              addUserList={this.addUserList}
+             />
           </TabContainer>
         </SwipeableViews>
       );
@@ -195,7 +199,8 @@ class LoginPage extends React.Component {
   };
   @action addUserList = (user) => {
     const u = this.userList;
-    u.push(user);
+    u.unshift(user);
+    _.uniqBy(u,'id');
     this.userList = u;
     this.forcedAlien = false;
     localStorage.setItem(USER_LIST, JSON.stringify(this.userList));

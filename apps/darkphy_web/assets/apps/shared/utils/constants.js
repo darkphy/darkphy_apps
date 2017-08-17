@@ -34,6 +34,9 @@ export const AMERICAN_ERRORS = [
 export const getKeyFromError = (str) => {
   return str.toLowerCase().split(" ").join("_");
 }
+export const HASH = {
+  join: 'join',
+}
 export const AUTH_TOKEN = "AUTH_TOKEN";
 export const REFRESH_TOKEN = "REFRESH_TOKEN";
 export const USER_LIST = "USER_LIST";

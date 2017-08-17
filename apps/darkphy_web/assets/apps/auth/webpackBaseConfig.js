@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const path = require('path');
 const pkg = require('./package.json');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 const sharedModule = (process.env.NODE_ENV === 'development') ? path.resolve(__dirname, '../shared/') : path.resolve(__dirname, 'src/shared/');
 
 module.exports = {
@@ -19,6 +20,10 @@ module.exports = {
       allChunks : true
     }),
     new webpack.NamedModulesPlugin(),
+    new LodashModuleReplacementPlugin({
+      'collections': true,
+      'paths': true,
+    }),
   ],
   resolve: {
     alias: {
