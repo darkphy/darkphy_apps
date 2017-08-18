@@ -14,7 +14,6 @@ import Base.Normalize, only: [normalize_kind: 1]
   end
   def register(args) do
       with {:ok, id} <- Base.ItemEntity.create_entity(%{kind: "user" |> normalize_kind() }) do
-        IO.inspect(id)
         %Base.Profile{}
         |> Base.Profile.register_changeset(%{id: id, name: args.name})
         |> Base.Profile.register_insert()
