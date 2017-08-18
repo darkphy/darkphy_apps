@@ -4,7 +4,7 @@ use Mix.Config
 
 hostname =
 case Mix.env do
-  "test" -> "mysql"
+  ":test" -> "mysql"
   _ -> "localhost"
 end
 IO.inspect(Mix.env)
