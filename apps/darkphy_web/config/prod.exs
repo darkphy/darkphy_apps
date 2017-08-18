@@ -15,8 +15,8 @@ use Mix.Config
 # which you typically run after static files are built.
 config :darkphy_web, DarkphyWeb.Endpoint,
   on_init: {DarkphyWeb.Endpoint, :load_from_system_env, []},
-  url: [host: "example.com", port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  url: [host: "example.com", port: 80]
+#  cache_static_manifest: "priv/static/cache_manifest.json"
 
 # ## SSL Support
 #
@@ -38,8 +38,8 @@ config :darkphy_web, DarkphyWeb.Endpoint,
 # We also recommend setting `force_ssl`, ensuring no data is
 # ever sent via http, always redirecting to https:
 #
-     config :darkphy_web, DarkphyWeb.Endpoint,
-       force_ssl: [hsts: true]
+#     config :darkphy_web, DarkphyWeb.Endpoint,
+#       force_ssl: [hsts: true]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
@@ -62,7 +62,7 @@ import_config "prod.secret.exs"
 
 #https://blog.polyscribe.io/a-complete-guide-to-deploying-elixir-phoenix-applications-on-kubernetes-part-1-setting-up-d88b35b64dcd
 config :darkphy_web, DarkphyWeb.Endpoint,
-  force_ssl: [hsts: true]
+#  force_ssl: [hsts: true],
   http: [port: "${PORT}"],
   url: [host: "${HOST}", port: "${PORT}"],
   server: true

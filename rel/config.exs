@@ -24,13 +24,13 @@ use Mix.Releases.Config,
 environment :dev do
   set dev_mode: true
   set include_erts: false
-  set cookie: :".Z_l/;ToVKc5h`wh)xJk@3xzOW(*~gt,/FIAa^b|T),{<:M@^Rj3Bd?Ku`<eW%fz"
+  set cookie: :"OPqA1Y$JGi]AD:>7l7qV*va}{m[&/QNX2sq95fWz[uS6?MH%ra|SC~P/IKxHYh}O"
 end
 
 environment :prod do
   set include_erts: true
   set include_src: false
-  set cookie: :"4NjNa`ow!.=`&O?rY^@=YH^d_T{,EqVC[]4E*F%8fiU.Mp7M]%Qb8Rbm&3&l8hR1"
+  set cookie: :"s=pP<nt,EShrcdnVDGtQnA3ear0SbiC_MzeP2_<7woXh]=&PBxBf|jN{~Xe~vpp("
 end
 
 # You may define one or more releases in this file.
@@ -47,4 +47,3 @@ release :darkphy_apps do
     darkphy_web: :permanent
   ]
 end
-
