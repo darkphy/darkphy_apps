@@ -43,10 +43,16 @@ test_elixir:
     - echo "SELECT 'OK';" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host="${MYSQL_HOSTNAME}" "${MYSQL_DATABASE}"
     - echo "CREATE USER 'mother'@'mysql' IDENTIFIED BY 'fucker'" | mysql --user="${MYSQL_ROOT_USER}" --password="${MYSQL_ROOT_PASSWORD}" --host="${MYSQL_HOSTNAME}"
     - echo "SELECT 'OK';" | mysql --user="${MYSQL_USER}" --password="${MYSQL_PASSWORD}" --host="${MYSQL_HOSTNAME}" "${MYSQL_DATABASE}"
+    - echo "SHOW GLOBAL VARIABLES LIKE 'PORT';" | mysql --user="${MYSQL_USER}" --password="${MYSQL_PASSWORD}" --host="${MYSQL_HOSTNAME}" "${MYSQL_DATABASE}"
     #- echo "CREATE DATABASE IF NOT EXISTS darkphy" | mysql --user="${MYSQL_USER}" --password="${MYSQL_PASSWORD}" --host=mysql
     - mix deps.get --only test
   script:
     - mix test
+  cache:
+    untracked: true
+    paths:
+      - _build
+      - deps
 
 test_javascript:
     <<: *defaults
@@ -57,3 +63,7 @@ test_javascript:
       - cd /builds/darkphy/darkphy_apps/apps/darkphy_web/assets/apps/auth/
       - yarn install
       - yarn run test
+    cache:
+      untracked: true
+      paths:
+        - node_modules
