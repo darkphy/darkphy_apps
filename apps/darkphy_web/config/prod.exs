@@ -65,7 +65,6 @@ config :darkphy_web, DarkphyWeb.Endpoint,
   force_ssl: [hsts: true]
   http: [port: "${PORT}"],
   url: [host: "${HOST}", port: "${PORT}"],
-  secret_key_base: "${SECRET_KEY_BASE}",
   server: true
 
 # Do not print debug messages in production
