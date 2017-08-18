@@ -33,7 +33,7 @@ const formatDate = (date) => {
 }
 
 const SignUp = gql`
-  query SignUp($name: String!) {
+  mutation SignUp($name: String!) {
     join(name: $name) {
       id,
       name,

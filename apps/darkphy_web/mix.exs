@@ -42,8 +42,6 @@ defmodule DarkphyWeb.Mixfile do
 		{:cowboy, "~> 1.0"},
 		{:guardian, "~> 0.14"},
 		{:poison, "~> 3.1",override: true},
-		{:snowflake, "~> 1.0.0"},
-		{:hashids, "~> 2.0"},
 		{:darkphy, in_umbrella: true},
 		{:absinthe, "~> 1.3"},
 		{:absinthe_relay, "~> 1.3"},

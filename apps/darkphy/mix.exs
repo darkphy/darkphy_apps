@@ -39,7 +39,8 @@ defmodule Darkphy.Mixfile do
   defp deps do
 		[{:ecto, "~> 2.1"},
 		{:mariaex, "~> 0.8.2"},
-		{:auth, in_umbrella: true}]
+		{:auth, in_umbrella: true},
+		{:snowflake, "~> 1.0"}]
 
 
 	end

@@ -14,15 +14,21 @@ defmodule DarkphyWeb.Schema do
        resolve &DarkphyWeb.Resolver.Auth.login/3
      end
 
-     field :join, :profiles do
-       arg :name, :string
-       resolve &DarkphyWeb.Resolver.Auth.join/3
-     end
-
      field :check_email, :profiles do
         arg :email, non_null(:string)
         resolve &Resolver.User.check_email/3
      end
 
   end
+
+
+  mutation do
+
+    field :join, :profiles do
+      arg :name, :string
+      resolve &DarkphyWeb.Resolver.Auth.join/3
+    end
+
+  end
+
 end

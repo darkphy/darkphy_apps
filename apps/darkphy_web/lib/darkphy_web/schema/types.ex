@@ -15,12 +15,15 @@ defmodule DarkphyWeb.Schema.Types do
   end
   object :profiles do
     field :id, :id
-    field :email, :string
     field :username, :string
     field :name, :string
     field :pp, :string
     field :cover, :string
     field :celeb, :integer
     field :created_at, :integer
+
+    field :email, :string
+    field :access_token, :string
+    field :refresh_token, :string
   end
 end

@@ -6,6 +6,7 @@ defmodule Darkphy.Errors.Codes do
     "not_found",
     "invalid_auth",
     "empty_return",
+    "entity_error",
   ]
   def getCode(str) do
     Enum.find_index(@code_list, fn(x) -> x == str end)
