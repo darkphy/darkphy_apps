@@ -38,8 +38,8 @@ config :darkphy_web, DarkphyWeb.Endpoint,
 # We also recommend setting `force_ssl`, ensuring no data is
 # ever sent via http, always redirecting to https:
 #
-#     config :darkphy_web, DarkphyWeb.Endpoint,
-#       force_ssl: [hsts: true]
+     config :darkphy_web, DarkphyWeb.Endpoint,
+       force_ssl: [hsts: true]
 #
 # Check `Plug.SSL` for all available options in `force_ssl`.
 
@@ -59,3 +59,14 @@ config :darkphy_web, DarkphyWeb.Endpoint,
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
 import_config "prod.secret.exs"
+
+#https://blog.polyscribe.io/a-complete-guide-to-deploying-elixir-phoenix-applications-on-kubernetes-part-1-setting-up-d88b35b64dcd
+config :darkphy_web, DarkphyWeb.Endpoint,
+  force_ssl: [hsts: true]
+  http: [port: "${PORT}"],
+  url: [host: "${HOST}", port: "${PORT}"],
+  secret_key_base: "${SECRET_KEY_BASE}",
+  server: true
+
+# Do not print debug messages in production
+config :logger, level: :info
