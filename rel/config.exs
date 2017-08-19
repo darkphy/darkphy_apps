@@ -46,4 +46,5 @@ release :darkphy_apps do
     darkphy: :permanent,
     darkphy_web: :permanent
   ]
+  set vm_args: "./vm_args"
 end

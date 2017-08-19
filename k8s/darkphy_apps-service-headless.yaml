@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: darkphy_apps-service-headless
+spec:
+  ports:
+    - port: 8000
+  selector:
+    app: darkphy_apps
+  clusterIP: None

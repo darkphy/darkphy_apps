@@ -1,0 +1,43 @@
+apiVersion: v1aplha1
+kind: Deployment
+metadata:
+  name: darkphy_apps-deployment
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: darkphy_apps
+    spec:
+      containers:
+        - name: darkphy_apps
+          [...clipped...]
+          env:
+            - name: HOST
+              value: "example.com"
+
+            - name: MY_POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+
+            - name: DB_HOSTNAME
+              value: "10.0.2.2"
+
+            - name: MY_POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: ERLANG_COOKIE
+              valueFrom:
+                secretKeyRef:
+                  name: app-config
+                  key: erlang-cookie
+
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+
+            - name: REPLACE_OS_VARS
+              value: "true"

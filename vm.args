@@ -1,0 +1,6 @@
+# Name of the node
+-name darkphy_apps@${MY_POD_IP}
+# Only nodes with same cookie will get connected
+-setcookie ${ERLANG_COOKIE}
+# SMP auto availability
+-smp auto
