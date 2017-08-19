@@ -19,6 +19,7 @@ stages:
 #  - mysql_build
   - test_javascript
   - test_elixir
+  - build_docker
 
 
 #mysql_build:
@@ -67,3 +68,11 @@ test_javascript:
       untracked: true
       paths:
         - node_modules
+
+build_docker:
+  <<: *defaults
+  stage: build_docker
+  before_script:
+    - eval $(minikube docker-env)
+    - mix docker.build
+    - mix docker.release

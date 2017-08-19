@@ -23,7 +23,8 @@ defmodule DarkphyApps.Mixfile do
   defp deps do
 		[{:distillery, "~> 1.4",runtime: false},
 		{:shorter_maps, "~> 2.2"},
-		{:hashids, "~> 2.0.4"}]
+		{:hashids, "~> 2.0.4"},
+		{:mix_docker, "~> 0.5.0"}]
 
 		
 	end
