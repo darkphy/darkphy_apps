@@ -74,5 +74,6 @@ build_docker:
   stage: build_docker
   before_script:
     - eval $(minikube docker-env)
+  script:
     - mix docker.build
     - mix docker.release
