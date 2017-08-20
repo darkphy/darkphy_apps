@@ -23,9 +23,11 @@ module.exports = Object.assign({}, webpackBaseConfig, {
     main: ['./src/index'],
     vendor
   },
+
   output: Object.assign({},webpackBaseConfig.output,{
-    publicPath: `https://unpkg.com/${pkg.name}/`
+    publicPath: `https://unpkg.com/${pkg.name}/`,
   }),
+
   plugins: webpackBaseConfig.plugins.concat([
 /*
     new webpack.DllReferencePlugin({
