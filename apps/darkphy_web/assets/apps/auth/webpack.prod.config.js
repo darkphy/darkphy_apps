@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const webpackBaseConfig = require('./webpackBaseConfig');
 //const dllManifest = require('./build/dll.manifest.json');
 const CompressionPlugin = require('compression-webpack-plugin');
+const pkg = require('./package.json');
 
 const vendor = [
   'react',
@@ -22,6 +23,9 @@ module.exports = Object.assign({}, webpackBaseConfig, {
     main: ['./src/index'],
     vendor
   },
+  output: Object.assign({},webpackBaseConfig.output,{
+    publicPath: `https://unpkg.com/${pkg.name}/`
+  }),
   plugins: webpackBaseConfig.plugins.concat([
 /*
     new webpack.DllReferencePlugin({

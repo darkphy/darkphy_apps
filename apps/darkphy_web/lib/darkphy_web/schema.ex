@@ -1,6 +1,5 @@
 defmodule DarkphyWeb.Schema do
   use Absinthe.Schema
-  use Absinthe.Relay.Schema
 
   alias Darkphy.Resolver
 

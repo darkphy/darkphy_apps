@@ -1,6 +1,6 @@
 {
   "name": "darkphy-auth",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -12,7 +12,7 @@
     "clean": "rimraf build",
     "copy:shared": "cp -r ../shared src/shared && replace 'npmmod/' '' src/shared/ -r",
     "clean:shared": "rimraf src/shared",
-    "deploy": "npm run build && cp package.json build/ && npm publish"
+    "deploy": "npm run build && cp package.json ./build/ && npm publish ./build"
   },
   "jest": {
     "testMatch": [
