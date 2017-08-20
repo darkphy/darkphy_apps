@@ -44,7 +44,6 @@ defmodule DarkphyWeb.Mixfile do
 		{:poison, "~> 3.1",override: true},
 		{:darkphy, in_umbrella: true},
 		{:absinthe, "~> 1.3"},
-		{:absinthe_relay, "~> 1.3"},
 		{:absinthe_plug, "~> 1.3"},
 		{:absinthe_ecto, "~> 0.1.0"},
 		{:redix, "~> 0.6.1"},

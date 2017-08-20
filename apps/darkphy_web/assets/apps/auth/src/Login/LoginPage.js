@@ -6,15 +6,16 @@ import { observable, action } from 'mobx';
 import _ from 'lodash';
 import { Icon, List, Paper, Typography } from 'material-ui';
 import { ListItem, ListItemText, FaDiv, Fa, Span, Div } from 'material-son';
-import { createStyleSheet, withStyles } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 import SwipeableViews from 'react-swipeable-views';
 import cx from 'classnames';
 
 import { SignupForm } from '../Signup';
 import LoginForm from './LoginForm.js';
 import { Avatar } from 'shared';
-import { AUTH_TOKEN, USER_LIST, HASH } from 'shared/utils/constants.js';
+import { AUTH_TOKEN, USER_LIST, BG_URL ,HASH } from 'shared/utils/constants.js';
 import legendcss from '../css/legend.css';
+import { styleSheet } from '../css/landingStyle.js';
 
 const swipeableHeight = '280px';
 const TabContainer = props =>
@@ -26,45 +27,6 @@ TabContainer.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-const styleSheet = createStyleSheet(theme => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    minHeight: '500px',
-  },
-  center: {
-    flexShrink: 0,
-    width: '450px',
-    position: 'relative',
-    padding: '20px',
-  },
-  paper: {
-    background: 'rgba(60, 60, 61, 0.75)',
-    position: 'relative',
-    zIndex: 10,
-  },
-  blur: {
-    filter: 'blur(10px)',
-  },
-  bg: {
-    position: 'absolute',
-    top: '0',
-    left: '0',
-    backgroundColor: '#2f3136',
-    backgroundSize: 'cover',
-    backgroundPosition: '50%',
-
-    width: '100%',
-    height: '100%',
-    zIndex: '-1',
-  },
-  accountIcon: {
-    backgroundColor: 'transparent',
-  },
-}));
-
-const bgURL = 'http://i.imgur.com/BQFAZTe.jpg?1';
 @withStyles(styleSheet)
 @inject('LangarStore') @observer
 class LoginPage extends React.Component {
@@ -79,7 +41,7 @@ class LoginPage extends React.Component {
   }
   componentDidMount(){
     this.alien = !localStorage.getItem(AUTH_TOKEN);
-    document.body.style.backgroundImage = `url(${bgURL})`;
+    document.body.style.backgroundImage = `url(${BG_URL})`;
     const userList = localStorage.getItem(USER_LIST);
     //localStorage.clear();
     if(userList !== false && userList!==null && userList.length > 0){
@@ -184,7 +146,7 @@ class LoginPage extends React.Component {
       <Div className={classes.root} >
         <Div className={cx(classes.center)} >
           <Div className={cx(classes.blur)} >
-            <Div className={cx(classes.bg)} style={{backgroundImage: `url(${bgURL})`}}></Div>
+            <Div className={cx(classes.bg)} style={{backgroundImage: `url(${BG_URL})`}}></Div>
           </Div>
             <Paper className={cx(classes.paper)} >{out}</Paper>
           </Div>

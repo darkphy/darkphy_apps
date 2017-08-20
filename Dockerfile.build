@@ -1,4 +1,4 @@
-FROM elixir:latest
+FROM bitwalker/alpine-elixir:latest
 
 ARG NODE_MAJOR_VERSION=8
 ENV HOME=/opt/app/

@@ -1,5 +1,5 @@
 {
-  "name": "auth",
+  "name": "darkphy-auth",
   "version": "0.1.0",
   "main": "index.js",
   "license": "MIT",
@@ -11,7 +11,8 @@
     "test": "npm run copy:shared && cross-env NODE_ENV=test jest && npm run clean:shared",
     "clean": "rimraf build",
     "copy:shared": "cp -r ../shared src/shared && replace 'npmmod/' '' src/shared/ -r",
-    "clean:shared": "rimraf src/shared"
+    "clean:shared": "rimraf src/shared",
+    "deploy": "npm run build && cp package.json build/ && npm publish"
   },
   "jest": {
     "testMatch": [

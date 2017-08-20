@@ -3,6 +3,7 @@ export const CURRENT_USER = 'CURRENT_USER';
 export const UI_LANGUAGE = "UI_LANGUAGE";
 export const UI_LANGUAGE_CODE = "UI_LANGUAGE_CODE";
 
+export const BG_URL = 'http://i.imgur.com/BQFAZTe.jpg?1';
 
 export const AMERICAN_WORDS = {
   hi: "Hi",
@@ -20,6 +21,8 @@ export const AMERICAN_WORDS = {
 
   emailphone: "Email or phone",
   pass: "Password",
+  forgot_header: "Forgot Credentials",
+  resend: "Resend Code",
 
   next: "Next",
 };
@@ -36,6 +39,7 @@ export const getKeyFromError = (str) => {
 }
 export const HASH = {
   join: 'join',
+  pwd: 'pwd',
 }
 export const AUTH_TOKEN = "AUTH_TOKEN";
 export const REFRESH_TOKEN = "REFRESH_TOKEN";

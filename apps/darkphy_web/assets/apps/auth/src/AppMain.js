@@ -7,15 +7,22 @@ import { Provider } from 'mobx-react';
 
 
 import { DarkError, DarkErrorStore } from 'shared';
-import Login from './Login';
-
+//import Login from './Login';
+//import Forgot from './Forgot';
+import asyncComponent from './asyncComponent';
 import { createStyleSheet, withStyles } from 'material-ui/styles';
 
 import DevTools from 'mobx-react-devtools';
 
+const Login = asyncComponent(() => import('./Login')
+  .then(module => module.default), { name: 'Login' });
+const Forgot = asyncComponent(() => import('./Forgot')
+    .then(module => module.default), { name: 'Forgot' });
+
 const MainRoutes = () => (
   <main>
       <Switch>
+        <Route path="/forgot" component={Forgot} />
         <Route path="/" component={Login} />
         <Route exact path="/" component={() => {return (<div></div>); }} />
       </Switch>

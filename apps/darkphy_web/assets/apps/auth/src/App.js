@@ -29,8 +29,8 @@ jss.options.createGenerateClassName = createGenerateClassName
 jss.options.insertionPoint = 'jss'
 
 
-@observer
 @withRouter
+@observer
 class App extends React.Component {
   render() {
     let theme = createMuiTheme({

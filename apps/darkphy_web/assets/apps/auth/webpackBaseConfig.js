@@ -37,7 +37,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'build'),
     filename: '[name]-bundle.js',
-    chunkFilename: '[name]-chunk.js',
+    chunkFilename: '[name]-[chunkhash]-chunk.js',
     publicPath: '/build/',
   },
   module: {
