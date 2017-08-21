@@ -25,23 +25,28 @@ const stores = {
 
 
 jss.setup(preset())
-jss.options.createGenerateClassName = createGenerateClassName
+//jss.options.createGenerateClassName = createGenerateClassName
 jss.options.insertionPoint = 'jss'
 
 
 @withRouter
 @observer
 class App extends React.Component {
-  render() {
-    let theme = createMuiTheme({
+  constructor(props){
+    super(props);
+
+    const theme = createMuiTheme({
       palette: createPalette({
         type: (AppStore.theme == 0) ? 'dark' : 'light',
         primary: darkPrimary
       }),
     });
+    this.theme = theme;
+  }
+  render() {
     return (
       <JssProvider jss={jss}>
-        <MuiThemeProvider theme={theme}>
+        <MuiThemeProvider theme={this.theme}>
           <AppMain
             theme={AppStore.theme}
             Atmosphere={Atmosphere}

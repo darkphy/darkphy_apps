@@ -10,14 +10,12 @@ import { DarkError, DarkErrorStore } from 'shared';
 //import Login from './Login';
 //import Forgot from './Forgot';
 import asyncComponent from './asyncComponent';
-import { createStyleSheet, withStyles } from 'material-ui/styles';
+import { withStyles } from 'material-ui/styles';
 
 import DevTools from 'mobx-react-devtools';
 
-const Login = asyncComponent(() => import('./Login')
-  .then(module => module.default), { name: 'Login' });
-const Forgot = asyncComponent(() => import('./Forgot')
-    .then(module => module.default), { name: 'Forgot' });
+const Login = asyncComponent(() => import('./Login').then(module => module.default), { name: 'Login' });
+const Forgot = asyncComponent(() => import('./Forgot').then(module => module.default), { name: 'Forgot' });
 
 const MainRoutes = () => (
   <main>
@@ -33,7 +31,7 @@ const MainRoutes = () => (
 
 const rootClass = "app-container";
 
-const styleSheet = createStyleSheet('AppMain',{
+const styleSheet = theme => ({
   overlay: {},
   dark_visible: {
     '& $overlay': {

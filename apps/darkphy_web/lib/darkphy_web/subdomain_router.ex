@@ -31,7 +31,7 @@ defmodule DarkphyWeb.SubdomainRouter do
   scope "/", DarkphyWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", SubdomainPageController, :index
+    get "/*path", SubdomainPageController, :index
   end
 
   # Other scopes may use custom stacks.

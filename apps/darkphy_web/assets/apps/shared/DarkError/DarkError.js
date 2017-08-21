@@ -5,10 +5,10 @@ import PropTypes from 'npmmod/prop-types';
 
 import { Icon } from 'npmmod/material-ui';
 import { FaDiv, Div, Button } from 'npmmod/material-son';
-import { createStyleSheet, withStyles } from 'npmmod/material-ui/styles';
+import { withStyles } from 'npmmod/material-ui/styles';
 import cx from 'npmmod/classnames';
 
-const styleSheet = createStyleSheet({
+const styleSheet = theme => ({
   icon: {
     fontSize: '65px',
     color: '#98a9b4'
@@ -66,11 +66,10 @@ const styleSheet = createStyleSheet({
   controls: {
   	marginTop: '28px',
   },
+});
 
-})
-
-@withStyles(styleSheet)
 @inject('DarkErrorStore','LangarStore') @observer
+@withStyles(styleSheet)
 class DarkError extends React.Component{
   static propTypes = {
     DarkErrorStore: PropTypes.object.isRequired,

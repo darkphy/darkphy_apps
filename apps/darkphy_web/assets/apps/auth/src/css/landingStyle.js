@@ -1,6 +1,4 @@
-import { createStyleSheet } from 'material-ui/styles';
-
-export const styleSheet = createStyleSheet(theme => ({
+export const styleSheet = theme => ({
   root: {
     display: 'flex',
     justifyContent: 'center',
@@ -36,4 +34,4 @@ export const styleSheet = createStyleSheet(theme => ({
   accountIcon: {
     backgroundColor: 'transparent',
   },
-}));
+});
