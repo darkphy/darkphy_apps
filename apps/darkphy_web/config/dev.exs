@@ -36,8 +36,6 @@ config :darkphy_web, DarkphyWeb.Endpoint,
 config :darkphy_web, DarkphyWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r{priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$},
-      ~r{priv/gettext/.*(po)$},
       ~r{lib/darkphy_web/views/.*(ex)$},
       ~r{lib/darkphy_web/controllers/.*(ex)$},
       ~r{lib/darkphy_web/templates/.*(eex)$}

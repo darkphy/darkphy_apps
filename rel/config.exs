@@ -8,7 +8,7 @@ Path.join(["rel", "plugins", "*.exs"])
 
 use Mix.Releases.Config,
     # This sets the default release built by `mix release`
-    default_release: :default,
+    default_release: :darkphy_apps,
     # This sets the default environment used by `mix release`
     default_environment: Mix.env()
 
@@ -46,5 +46,5 @@ release :darkphy_apps do
     darkphy: :permanent,
     darkphy_web: :permanent
   ]
-  set vm_args: "./vm_args"
+  #set vm_args: "./vm.args"
 end

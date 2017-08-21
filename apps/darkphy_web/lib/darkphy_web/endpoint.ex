@@ -46,16 +46,4 @@ defmodule DarkphyWeb.Endpoint do
 
   plug DarkphyWeb.Plug.Subdomain, DarkphyWeb.SubdomainRouter
   plug DarkphyWeb.Router
-
-  @doc """
-  Dynamically loads configuration from the system environment
-  on startup.
-
-  It receives the endpoint configuration from the config files
-  and must return the updated configuration.
-  """
-  def load_from_system_env(config) do
-    port = System.get_env("PORT") || raise "expected the PORT environment variable to be set"
-    {:ok, Keyword.put(config, :http, [:inet6, port: port])}
-  end
 end
