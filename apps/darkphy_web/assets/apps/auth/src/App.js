@@ -5,11 +5,6 @@ import { observer } from 'mobx-react';
 import { withRouter } from 'react-router';
 
 import { MuiThemeProvider, createPalette, createMuiTheme } from 'material-ui/styles';
-import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
-import { JssProvider } from 'react-jss';
-import jss  from 'jss';
-import preset from 'jss-preset-default';
-
 
 import { darkPrimary } from 'shared/utils/styles.js';
 import AppStore from './AppStore';
@@ -22,12 +17,6 @@ const stores = {
   AppStore,
   LangarStore,
 }
-
-
-jss.setup(preset())
-//jss.options.createGenerateClassName = createGenerateClassName
-jss.options.insertionPoint = 'jss'
-
 
 @withRouter
 @observer
@@ -45,7 +34,6 @@ class App extends React.Component {
   }
   render() {
     return (
-      <JssProvider jss={jss}>
         <MuiThemeProvider theme={this.theme}>
           <AppMain
             theme={AppStore.theme}
@@ -53,7 +41,6 @@ class App extends React.Component {
             stores={stores}
           />
       </MuiThemeProvider>
-    </JssProvider>
     );
   }
 }

@@ -15,6 +15,7 @@ export const styleSheet = theme => ({
     background: 'rgba(60, 60, 61, 0.75)',
     position: 'relative',
     zIndex: 10,
+    padding: '70px 30px 30px',
   },
   blur: {
     filter: 'blur(10px)',

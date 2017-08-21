@@ -11,7 +11,10 @@ spec:
     spec:
       containers:
         - name: darkphy_apps
-          [...clipped...]
+          image: darkphy_apps:release
+          ports:
+            - containerPort: 8000
+          args: ["foreground"]
           env:
             - name: HOST
               value: "example.com"
