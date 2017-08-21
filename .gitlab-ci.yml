@@ -75,5 +75,11 @@ build_docker:
   before_script:
     - eval $(minikube docker-env)
   script:
+    - mix deps.get
     - mix docker.build
     - mix docker.release
+  cache:
+    untracked: true
+    paths:
+      - _build
+      - deps    
