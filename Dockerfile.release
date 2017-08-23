@@ -1,5 +1,12 @@
 FROM bitwalker/alpine-elixir:latest
 
+# install gcc make
+RUN set -x\
+ && apk add --no-cache\
+  gcc\
+  make\
+  musl-dev
+
 EXPOSE 8000
 ENV PORT=8000 MIX_ENV=prod REPLACE_OS_VARS=true SHELL=/bin/bash
 WORKDIR /app

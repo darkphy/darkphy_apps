@@ -9,6 +9,8 @@
     MYSQL_ROOT_USER: root
     MYSQL_ROOT_PASSWORD: password
     MYSQL_HOSTNAME: mysql
+    DOCKER_REGISTRY_USERNAME: dsslimshaddy
+    DOCKER_REGISTRY_PASSWORD: ricking06081997
   services:
     - mysql
 
@@ -17,9 +19,9 @@
 
 stages:
 #  - mysql_build
+  - build_docker
   - test_javascript
   - test_elixir
-  - build_docker
 
 
 #mysql_build:
@@ -74,6 +76,7 @@ build_docker:
   stage: build_docker
   before_script:
     - eval $(minikube docker-env)
+    - docker login -u "${DOCKER_REGISTRY_USERNAME}" -p "${DOCKER_REGISTRY_PASSWORD}" registry.gitlab.com
   script:
     - mix deps.get
     - mix docker.build
@@ -82,4 +85,4 @@ build_docker:
     untracked: true
     paths:
       - _build
-      - deps    
+      - deps
