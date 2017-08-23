@@ -1,4 +1,4 @@
-FROM elixir:latest
+FROM bitwalker/alpine-elixir:latest
 
 EXPOSE 8000
 ENV PORT=8000 MIX_ENV=prod REPLACE_OS_VARS=true SHELL=/bin/bash

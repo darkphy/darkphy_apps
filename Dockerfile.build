@@ -1,7 +1,8 @@
-FROM elixir:latest
+FROM bitwalker/alpine-elixir:latest
 
 ARG NODE_MAJOR_VERSION=8
 ENV HOME=/opt/app/
+ENV MAKE=/usr/bin/make
 
 #RUN apt-get update && \
 #    apt-get install -y curl mysql-client && \
@@ -15,17 +16,41 @@ ENV HOME=/opt/app/
 RUN /usr/local/bin/mix local.hex --force && \
     /usr/local/bin/mix local.rebar --force
 
+# install gcc make
+RUN set -x\
+ && apk add --no-cache\
+  gcc\
+  make\
+  musl-dev
+
 
 WORKDIR /opt/app
 ENV MIX_ENV=prod REPLACE_OS_VARS=true
-
-RUN apt-get install make
 
 # Cache elixir deps
 COPY mix.exs mix.lock ./
 RUN mix deps.get
 COPY config ./config
 RUN mix deps.compile
-RUN rm -rf apps/darkphy_web/assets
+
+# Run mix apps compile
+
+#auth
+COPY apps/auth/mix.exs apps/auth/config  ./apps/auth/
+RUN mix deps.get auth
+RUN mix deps.compile auth
+
+#darkphy
+COPY apps/darkphy/mix.exs apps/darkphy/config  ./apps/darkphy/
+RUN mix deps.get darkphy
+RUN mix deps.compile darkphy
+
+#darkphy_web
+COPY apps/darkphy_web/mix.exs apps/darkphy_web/config  ./apps/darkphy_web/
+RUN mix deps.get darkphy_web
+RUN mix deps.compile darkphy_web
+
+
+#RUN rm -rf apps/darkphy_web/assets
 COPY . .
-RUN MIX_ENV=prod mix release --env=prod
+RUN mix release --env=prod --verbose
