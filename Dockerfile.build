@@ -24,5 +24,6 @@ COPY mix.exs mix.lock ./
 RUN mix deps.get
 COPY config ./config
 RUN mix deps.compile
+RUN rm -rf apps/darkphy_web/assets
 COPY . .
 RUN MIX_ENV=prod mix release --env=prod
