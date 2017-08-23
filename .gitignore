@@ -25,3 +25,5 @@ erl_crash.dump
 # javascripts
 node_modules
 build
+
+*.tar.gz
