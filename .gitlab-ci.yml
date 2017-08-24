@@ -19,7 +19,7 @@
 
 
 stages:
-#  - mysql_build 
+#  - mysql_build
   - build_docker
   - test_javascript
   - test_elixir
