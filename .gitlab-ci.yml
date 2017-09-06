@@ -75,6 +75,8 @@ test_javascript:
 build_docker:
   <<: *defaults
   stage: build_docker
+  services:
+    - docker:dind
   before_script:
     - eval $(minikube docker-env)
   script:
