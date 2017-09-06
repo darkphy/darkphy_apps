@@ -75,11 +75,11 @@ test_javascript:
 build_docker:
   <<: *defaults
   stage: build_docker
-  services:
-    - docker:dind
   before_script:
     - eval $(minikube docker-env)
   script:
+    - export DOCKER_HOST=tcp://docker:2375
+    - docker version
     - mix deps.get
     - mix docker.build
     - mix docker.release
