@@ -78,8 +78,6 @@ build_docker:
   before_script:
     - eval $(minikube docker-env)
   script:
-    - docker info
-    - docker login -u "${DOCKER_REGISTRY_USERNAME}" -p "${DOCKER_REGISTRY_PASSWORD}" registry.gitlab.com
     - mix deps.get
     - mix docker.build
     - mix docker.release
