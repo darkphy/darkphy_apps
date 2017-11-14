@@ -133,7 +133,7 @@ class LoginForm extends React.Component{
       password: this.state.passwordField,
      },(res)=>{
        const { access_token, refresh_token, id } = res;
-       saveToken({access_token, refresh_token});
+       saveToken({ access_token, refresh_token });
 
        const user = Object.assign({},this.currentHit,{id, access_token, refresh_token});
        this.props.addUserList(user);

@@ -10,6 +10,7 @@ import { withStyles } from 'material-ui/styles';
 import SwipeableViews from 'react-swipeable-views';
 import cx from 'classnames';
 
+import { store } from 'shared/utils';
 import { SignupForm } from '../Signup';
 import LoginForm from './LoginForm.js';
 import { Avatar } from 'shared';
@@ -40,9 +41,14 @@ class LoginPage extends React.Component {
     super(props);
   }
   componentDidMount(){
-    this.alien = !localStorage.getItem(AUTH_TOKEN);
+    const st = require('shared/utils').store;
+    st.onConnect().then(()=>{
+      console.log(st.get('hulu'));
+    });
+
+    this.alien = !store.get(AUTH_TOKEN);
     document.body.style.backgroundImage = `url(${BG_URL})`;
-    const userList = localStorage.getItem(USER_LIST);
+    const userList = store.get(USER_LIST);
     //localStorage.clear();
     if(userList !== false && userList!==null && userList.length > 0){
       this.userList = JSON.parse(userList);
@@ -165,7 +171,7 @@ class LoginPage extends React.Component {
     _.uniqBy(u,'id');
     this.userList = u;
     this.forcedAlien = false;
-    localStorage.setItem(USER_LIST, JSON.stringify(this.userList));
+    store.set(USER_LIST, JSON.stringify(this.userList));
   }
 }
 export default LoginPage;

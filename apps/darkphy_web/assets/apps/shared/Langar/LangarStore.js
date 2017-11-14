@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'npmmod/mobx';
-import store from 'npmmod/store';
+import { store } from '../utils';
 
 import { axiosReturn } from '../utils';
 import { getKeyFromError, AMERICAN_ERRORS, AMERICAN_WORDS, UI_LANGUAGE , UI_LANGUAGE_CODE } from '../utils/constants.js';
