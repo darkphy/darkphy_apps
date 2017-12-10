@@ -13,7 +13,6 @@ import { LangarStore } from 'shared';
 import Atmosphere from 'shared/graphql/Atmosphere.js';
 import AppMain from './AppMain';
 
-import {CrossStorageHub} from 'cross-storage';
 const origin = 'darkphy.dev:4000';
 
 const stores = {
@@ -34,11 +33,6 @@ class App extends React.Component {
       }),
     });
     this.theme = theme;
-  }
-  componentDidMount(){
-    CrossStorageHub.init([
-       {origin: origin, allow: ['get', 'set', 'del']}
-     ]);
   }
   render() {
     return (

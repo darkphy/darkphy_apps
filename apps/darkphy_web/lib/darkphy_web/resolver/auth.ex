@@ -2,6 +2,9 @@ defmodule DarkphyWeb.Resolver.Auth do
 
 alias DarkphyWeb.RedisConfigs
 
+import Darkphy.Errors.Codes, only: [returnCode: 1]
+
+
   def join(_parent, args, _info) do
     with { :ok, user } <- Darkphy.register(args),
          { :ok, jwt, _ } <- Guardian.encode_and_sign(%Darkphy.Base.ItemEntity{id: user.id}, :access) do
@@ -21,6 +24,8 @@ alias DarkphyWeb.RedisConfigs
          { :ok, jwt, _ } <- Guardian.encode_and_sign(%Darkphy.Base.ItemEntity{id: user.id}, :access) do
            refresh_token = add_to_redis(user.id)
            {:ok, %{id: user.id,access_token: jwt,refresh_token: refresh_token}}
+         else
+         _err -> returnCode(6)
      end
    end
 

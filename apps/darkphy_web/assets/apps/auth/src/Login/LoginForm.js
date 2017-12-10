@@ -44,16 +44,10 @@ const SignIn = gql`
   }
 `;
 @withApollo
-@inject('LangarStore','DarkErrorStore') @observer
+@inject('LoginStore','LangarStore','DarkErrorStore') @observer
 class LoginForm extends React.Component{
-  static propTypes = {
-    handleChangeIndex: PropTypes.func.isRequired,
-    setCurrentHit: PropTypes.func.isRequired,
-    addUserList: PropTypes.func.isRequired,
-  }
   constructor(props){
     super(props);
-    this.currentHit = {};
     this.state = {
       index: 0,
       emailField: '',
@@ -61,8 +55,15 @@ class LoginForm extends React.Component{
       loginSRC: 'https://cdn.discordapp.com/icons/301788644036050954/9ee2d59ab1c0cb881903da9995ad7ef4.png',
     };
   }
+  componentDidMount(){
+    const { currentHit } = this.props.LoginStore;
+      if(currentHit && currentHit.name){
+        this.setState({ emailField:  currentHit.email });
+        this.handleChangeIndex(1);
+      }
+   }
   render(){
-    const { LangarStore } = this.props;
+    const { LangarStore, LoginStore } = this.props;
     const {
       index,
       emailField,
@@ -95,7 +96,7 @@ class LoginForm extends React.Component{
             styleName='mar-20-0'
             >
             <Span styleName='hint'>Need an account? </Span>
-            <Link onClick={()=>{ this.props.handleChangeIndex(1) }} to="/#join">Register Now</Link>
+            <Link onClick={()=>{ LoginStore.handleChangeIndex(1) }} to="/#join">Register Now</Link>
           </Div>
         </TabContainer>
         <TabContainer>
@@ -121,7 +122,7 @@ class LoginForm extends React.Component{
          </form>
           <Div>
             <Span styleName='hint'>Missed Something? </Span>
-            <Link onClick={()=>{ this.handleChangeIndex(0); }} to="/#">Go back</Link>
+            <Link onClick={()=>{ LoginStore.setCurrentHit(null); this.handleChangeIndex(0); }} to="/#">Go back</Link>
           </Div>
         </TabContainer>
       </SwipeableViews>
@@ -135,23 +136,24 @@ class LoginForm extends React.Component{
        const { access_token, refresh_token, id } = res;
        saveToken({ access_token, refresh_token });
 
-       const user = Object.assign({},this.currentHit,{id, access_token, refresh_token});
-       this.props.addUserList(user);
+       const user = Object.assign({},this.props.LoginStore.currentHit,{id, access_token, refresh_token});
+       this.props.LoginStore.addUserList(user);
+
     });
   }
   handleCheckEmail = (e) => {
     e.preventDefault();
-    const { DarkErrorStore, LangarStore } = this.props;
+    const { DarkErrorStore, LangarStore, LoginStore } = this.props;
     return queryGQL(this.props, EmailCheck, {
       email: this.state.emailField,
     },(res)=>{
       this.handleChangeIndex(1);
-      this.currentHit = {
+      this.props.LoginStore.currentHit = {
         email: res.email,
         name: res.name,
         pp: res.pp,
       };
-      this.props.setCurrentHit(res);
+      LoginStore.setCurrentHit(res);
     });
   }
   handleEmailField = (e: object) => {

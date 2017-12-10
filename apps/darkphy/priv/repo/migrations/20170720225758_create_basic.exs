@@ -20,6 +20,7 @@ defmodule Darkphy.Repo.Migrations.CreateBasic do
       add :celeb, :tinyint
       add :created_at, :utc_datetime
       add :del, :tinyint , default: 0
+      add :tx, :string, size: 100
 
       timestamps()
     end

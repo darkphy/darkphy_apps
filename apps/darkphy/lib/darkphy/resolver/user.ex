@@ -9,7 +9,7 @@ defmodule Darkphy.Resolver.User do
 
   def find(_parent, args, _info) do
     case Darkphy.Repo.get(Darkphy.Base.Profile, args.id) do
-      nil  -> {:error, "User id  not found"}
+      nil  -> returnCode()
       user -> {:ok, user}
     end
   end

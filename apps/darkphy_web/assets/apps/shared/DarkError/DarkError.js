@@ -68,8 +68,8 @@ const styleSheet = theme => ({
   },
 });
 
-@inject('DarkErrorStore','LangarStore') @observer
 @withStyles(styleSheet)
+@inject('DarkErrorStore','LangarStore') @observer
 class DarkError extends React.Component{
   static propTypes = {
     DarkErrorStore: PropTypes.object.isRequired,

@@ -10,7 +10,7 @@ import { withApollo, gql } from 'react-apollo'
 import Recaptcha from 'react-google-invisible-recaptcha';
 
 import { saveToken } from 'shared/utils/auth.js';
-import { queryGQL } from 'shared/graphql/xhr.js';
+import { mutateGQL } from 'shared/graphql/xhr.js';
 import legendcss from '../css/legend.css';
 
 
@@ -45,11 +45,8 @@ const SignUp = gql`
 `;
 
 @withApollo
-@inject('LangarStore','DarkErrorStore') @observer
+@inject('LoginStore','LangarStore','DarkErrorStore') @observer
 class SignupForm extends React.Component{
-  static propTypes = {
-    handleChangeIndex: PropTypes.func.isRequired
-  }
   constructor(props) {
     super(props);
 
@@ -64,7 +61,7 @@ class SignupForm extends React.Component{
   }
   render (){
 
-      const { LangarStore } = this.props;
+      const { LangarStore, LoginStore } = this.props;
       const { formEvent, captchaResponse, fullName, lastName }  = this.state;
 
 
@@ -93,7 +90,7 @@ class SignupForm extends React.Component{
               </AButton>
               <Div>
                 <Span styleName='hint'>Already member? </Span>
-                <Link onClick={()=>{ this.props.handleChangeIndex(0); }} to="#login">Login</Link>
+                <Link onClick={()=>{ LoginStore.handleChangeIndex(0); }} to="#login">Login</Link>
               </Div>
             </Div>
           </form>
@@ -118,13 +115,13 @@ class SignupForm extends React.Component{
     });
   }
   handleSignup = ({resolve, reject}) => {
-    return queryGQL(this.props, SignUp, {
+    return mutateGQL(this.props, SignUp, {
       name: this.state.fullName,
      },(res)=>{
        const { access_token, refresh_token, id } = res;
        saveToken({access_token, refresh_token});
        const user = { id, name, pp, access_token, refresh_token };
-       this.props.addUserList(user);
+       this.props.LoginStore.addUserList(user);
     });
     /*
     let self = this;

@@ -17,6 +17,10 @@ defmodule DarkphyWeb.Schema do
         arg :email, non_null(:string)
         resolve &Resolver.User.check_email/3
      end
+     field :find, :profiles do
+        arg :id, non_null(:integer)
+        resolve &Resolver.User.find/3
+     end     
 
   end
 

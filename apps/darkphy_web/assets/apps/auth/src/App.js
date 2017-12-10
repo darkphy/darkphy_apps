@@ -8,6 +8,7 @@ import { MuiThemeProvider, createPalette, createMuiTheme } from 'material-ui/sty
 
 import { darkPrimary } from 'shared/utils/styles.js';
 import AppStore from './AppStore';
+import { LoginStore } from './Login';
 import { LangarStore } from 'shared';
 
 import Atmosphere from 'shared/graphql/Atmosphere.js';
@@ -16,6 +17,7 @@ import AppMain from './AppMain';
 const stores = {
   AppStore,
   LangarStore,
+  LoginStore,
 }
 
 @withRouter

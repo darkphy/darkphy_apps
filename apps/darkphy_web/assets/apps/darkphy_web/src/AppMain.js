@@ -14,17 +14,17 @@ import { withStyles } from 'material-ui/styles';
 import DevTools from 'mobx-react-devtools';
 
 const Home = asyncComponent(() => import('./Home').then(module => module.default), { name: 'Home' });
+const TokenSave = asyncComponent(() => import('./TokenSave.js').then(module => module.default), { name: 'TokenSave' });
 
 const MainRoutes = () => (
   <main>
       <Switch>
+        <Route path="/token" component={TokenSave} />
         <Route path="/" component={Home} />
         <Route exact path="/" component={() => {return (<div></div>); }} />
       </Switch>
   </main>
 );
-
-
 
 const rootClass = "app-container";
 

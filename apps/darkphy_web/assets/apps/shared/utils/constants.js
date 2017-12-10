@@ -44,3 +44,14 @@ export const HASH = {
 export const AUTH_TOKEN = "AUTH_TOKEN";
 export const REFRESH_TOKEN = "REFRESH_TOKEN";
 export const USER_LIST = "USER_LIST";
+
+export const gup = (name, url) => {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+    var regexS = "[\\?&]"+name+"=([^&#]*)";
+    var regex = new RegExp( regexS );
+    var results = regex.exec( url );
+    return results == null ? null : results[1];
+}
+
+export const _URL_ = 'http://darkphy.dev:2000/';

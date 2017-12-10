@@ -2,6 +2,7 @@ import { observable,action } from 'mobx';
 
 class AppStore{
     @observable theme;
+    @observable id;
     constructor(){
        this.theme = 0
     }

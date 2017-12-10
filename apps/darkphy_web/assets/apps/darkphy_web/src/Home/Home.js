@@ -9,13 +9,11 @@ import { store } from 'shared/utils';
 @inject('LangarStore','DarkErrorStore') @observer
 class Home extends React.Component{
   componentDidMount(){
-    console.log(localStorage.getItem("hulu"));
+    console.log(localStorage.getItem("AUTH_TOKEN"));
   }
   render(){
     return(
-      <Div>
-        Lets go speedman
-      </Div>
+      <Div></Div>
     );
   }
 }

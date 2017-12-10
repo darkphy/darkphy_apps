@@ -22,7 +22,7 @@ class DarkErrorStore {
         self[key] = stores[key];
     }
   }
-  @action setErrorParams = (data) => {
+  @action setErrorParams = (data = {}) => {
       this.setValue({
         errorTitle: data.title,
         errorDescription: data.description,

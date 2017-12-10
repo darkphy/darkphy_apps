@@ -19,7 +19,7 @@ const serverOptions = {
   },
 };
 
-const PORT = process.env.MATERIAL_UI_PORT || 3000;
+const PORT = process.env.MATERIAL_UI_PORT || 2000;
 
 new WebpackDevServer(webpack(webpackConfig), serverOptions).listen(PORT, '0.0.0.0', err => {
   if (err) {

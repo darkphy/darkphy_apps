@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 import { observable, action } from 'mobx';
-import _ from 'lodash';
 import { Icon, List, Paper, Typography } from 'material-ui';
 import { ListItem, ListItemText, FaDiv, Fa, Span, Div } from 'material-son';
 import { withStyles } from 'material-ui/styles';
@@ -18,6 +17,7 @@ import { AUTH_TOKEN, USER_LIST, BG_URL ,HASH } from 'shared/utils/constants.js';
 import legendcss from '../css/legend.css';
 import { styleSheet } from '../css/landingStyle.js';
 
+
 const swipeableHeight = '280px';
 const TabContainer = props =>
   <Div style={{ padding: 24, minHeight: swipeableHeight}}>
@@ -29,39 +29,29 @@ TabContainer.propTypes = {
 };
 
 @withStyles(styleSheet)
-@inject('LangarStore') @observer
+@inject('LangarStore','LoginStore') @observer
 class LoginPage extends React.Component {
-  @observable index =  0;
-  @observable alien =  true;
-  @observable currentHit =  null;
-  @observable userList = [];
-  @observable forcedAlien = false;
-
   constructor(props) {
     super(props);
   }
   componentDidMount(){
-    const st = require('shared/utils').store;
-    st.onConnect().then(()=>{
-      console.log(st.get('hulu'));
-    });
-
-    this.alien = !store.get(AUTH_TOKEN);
+    const { LoginStore } = this.props;
+    
+    LoginStore.alien = !localStorage.getItem(AUTH_TOKEN);
     document.body.style.backgroundImage = `url(${BG_URL})`;
-    const userList = store.get(USER_LIST);
-    //localStorage.clear();
+    const userList = localStorage.getItem(USER_LIST);
     if(userList !== false && userList!==null && userList.length > 0){
-      this.userList = JSON.parse(userList);
+      LoginStore.setValue("userList",JSON.parse(userList));
     }
 
     if(location.hash.substr(1) == HASH.join){
-      this.handleChangeIndex(1);
+      LoginStore.handleChangeIndex(1);
     }
   }
 
   getHeader = () => {
-    const { LangarStore } = this.props;
-    const { currentHit } = this;
+    const { LangarStore, LoginStore } = this.props;
+    const { currentHit } = LoginStore;
     const ret =
     (currentHit !== null) ?
     (<Div>
@@ -81,8 +71,8 @@ class LoginPage extends React.Component {
     return ret;
   }
   render() {
-    const { LangarStore, classes } = this.props;
-    const { alien, forcedAlien, index, userList } = this;
+    const { LangarStore, LoginStore, classes } = this.props;
+    const { alien, forcedAlien, index, userList } = LoginStore;
     const H1 = this.getHeader();
     let out;
     if(forcedAlien || alien || userList === null || userList.length < 1){
@@ -90,18 +80,11 @@ class LoginPage extends React.Component {
         <SwipeableViews index={index} onChangeIndex={this.handleChangeIndex} animateHeight={true}>
           <TabContainer>
             {H1}
-            <LoginForm
-            handleChangeIndex={this.handleChangeIndex}
-            setCurrentHit={this.setCurrentHit}
-            addUserList={this.addUserList}
-             />
+            <LoginForm />
           </TabContainer>
           <TabContainer>
             <Typography type="headline">{LangarStore.getW("join")}</Typography>
-            <SignupForm
-              handleChangeIndex={this.handleChangeIndex}
-              addUserList={this.addUserList}
-             />
+            <SignupForm />
           </TabContainer>
         </SwipeableViews>
       );
@@ -119,7 +102,12 @@ class LoginPage extends React.Component {
               return(
                 <ListItem
                   key={i}
-                  button >
+                  button 
+                  onClick={()=>{
+                    LoginStore.setValue("currentHit", o);
+                    LoginStore.setValue("forcedAlien", true);
+                  }}
+                  >
                   <Avatar profile={o} />
                   <ListItemText
                     primary={o.name}
@@ -133,8 +121,8 @@ class LoginPage extends React.Component {
             key={userList.length+1}
             button
             onClick={()=>{
-              this.forcedAlien = true;
-              this.currentHit = null;
+              LoginStore.setValue("forcedAlien", true);
+              LoginStore.setValue("currentHit", null);
             }}
             >
             <Avatar
@@ -159,19 +147,6 @@ class LoginPage extends React.Component {
         </Div>
     );
   }
-  handleChangeIndex = (index) => {
-    this.index = index;
-  };
-  @action setCurrentHit = (res) => {
-    this.currentHit = res;
-  };
-  @action addUserList = (user) => {
-    const u = this.userList;
-    u.unshift(user);
-    _.uniqBy(u,'id');
-    this.userList = u;
-    this.forcedAlien = false;
-    store.set(USER_LIST, JSON.stringify(this.userList));
-  }
 }
+
 export default LoginPage;

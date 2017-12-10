@@ -48,7 +48,8 @@ defmodule DarkphyWeb.Mixfile do
 		{:absinthe_ecto, "~> 0.1.0"},
 		{:redix, "~> 0.6.1"},
 		{:jose, "~> 1.8"},
-		{:cors_plug, "~> 1.4"}]
+    {:cors_plug, "~> 1.4"},
+		{:ethereumex, "~> 0.2.0"}]
 
 		#{:ecto_cassandra, "~> 1.0.0-beta.3"},
 		#{:redix, ">= 0.0.0"},
